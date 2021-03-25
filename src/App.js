@@ -2,12 +2,12 @@ import React, { useState, Component } from 'react';
 import './App.css';
 
 
-const Header = ({ counter }) => {
-  console.log('child');
-  return (
-    <h2> {counter}</h2>
-  )
-}
+// const Header = ({ counter }) => {
+//   console.log('child');
+//   return (
+//     <h2> {counter}</h2>
+//   )
+// }
 
 // function App(props) {
 //   // let counter = 0;
