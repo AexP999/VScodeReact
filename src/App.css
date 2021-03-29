@@ -6,11 +6,7 @@
   color: antiquewhite;
   height:100vh ;
 }
-.cardCont{
-  display: flex;;
-  padding:20px;
-  
-}
+
 
 .App-logo {
   height: 40vmin;
@@ -71,7 +67,12 @@ header{
   display: flex;
 }
 .bt1{
-      position: absolute;
-    left: 50%;
-    top: 80%;
+  position: absolute;
+  left: 50%;
+  top: 80%;
+}
+.cardCont{
+display: flex;
+  padding:20px;
+  
 }
