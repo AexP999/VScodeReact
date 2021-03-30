@@ -1,213 +1,181 @@
+// import React, { Component } from 'react';
+// import './App.css'
+
+// let interval;
+// class Comp extends Component {
+//   componentDidMount() {
+//     interval = setInterval(() => {
+//       console.log('fetching air data');
+//     }, 2000)
+//     console.log('Component Did Mount Child');
+//   }
+//   componentDidUpdate(prevProps, prevState) {
+//     console.log('Component Did Updated child');
+
+//   }
+//   componentWillUnmount() {
+//     clearInterval(interval);
+//     console.log('Component Will Unmount child');
+//   }
+//   render() {
+//     console.log('child render');
+//     return (
+//       <h1>child</h1>
+//     );
+//   }
+// }
 
 
-// ДЗ:
 
-// 1 відмалювати список карточок базуючись на якомусь створеному вами масиві створити окрему кнопку, яка буде видаляти поточний перший елемент(або останній)  якщо у нас масив з 3 елементів і ми клікнули на кнопку 3 рази, то на екрані жодна карточка не має відмалюватись(кнопки повернення до початкового стану не треба)
+// class App extends Component {
+//   state = {
+//     counter: 0
+//   }
+//   componentDidMount() {
+//     console.log('Componet Did Mount Parent');
+//   }
 
-// 2 те саме, тільки з кнопкою реверт(повернутись до стану, де у нас видно 3 елемнети, як на початку)
+//   componentDidUpdate(prevProps, prevState) {
+//     console.log('Component Did Updated parent');
+//     // this.stat  });
+//   }
 
-// 3   задача з зірочкою) кожна карточка з завдання вище має мати кнопку, по кліку на яку, ми видаляємо зі списку саме її + реверт кнопка, щоб вернути все назад(ця кнопка одна дня всіх карточок, клікнули по ній і всі каркти вернулись назазд)(згадування функції фільтр в лекції було не просто так)
+//   componentWillUpdate() {
+//     console.log('Component Will Unmount parent');
+//   }
 
-// 4   написати тогл компоненту, яка буде ховати або показувати елемент приклад з візуалкою тут https://material-ui.com/components/switches/#customized-switches
+//   incCounter = () => {
+//     this.setState({ counter: this.state.counter + 1 })
+//   }
 
 
-// // ====== 1  - 2 =====
+//   render() {
+//     console.log('parent render');
+
+
+//     return (
+//       <div className='App'>
+//         <h1 onClick={this.incCounter}>Hello {this.state.counter}</h1>
+//         {!!(this.state.counter % 2) && <Comp />}
+//       </div>
+//     );
+//   }
+// }
+
+
+// === Переделываем то же на функц. компонентах===
 
 // import React, { useState } from 'react';
-// import './App.css';
+// import './App.css'
+// let interval;
 
-// const Card = ({ card }) => {
+// const Comp = () => {
+//   React.useEffect(() => {
+//     console.log('Componet Did Mount child');
+//   }, []) // ===аналог componentDidMount с пустым массивом===
 
+//   React.useEffect(() => {
+//     interval = setInterval(() => {
+//       console.log('fetching air data');
+//       // ===Здесь можно писать логику для Didmount===
+//     }, 2000)
+//     return () => {
+//       clearInterval(interval);
+//       console.log('Componet Will Unmount child');
+//       // ===Здесь можно писать логику для WillUnmount===
+//     } // ===аналог componentWillUnmount с пустым массивом===
+//   }, [])
+
+
+//   console.log('child render')
 //   return (
-//     card.map(card => (
-//       <div className='card'>
-//         <h2>{card.nameOfGoods}</h2>
-//         <p>Size: {card.size}</p>
-//         <p>Price: {card.price} hrn</p>
-//         {card.stock == true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
-//       </div >
-//     ))
+//     <h1>child</h1>
 //   )
 // }
 
-// function App() {
-//   const [cardArr, setCardArr] = useState([
-//     {
-//       id: 1,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN50',
-//       price: 220,
-//       stock: false
-//     },
-//     {
-//       id: 2,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN65',
-//       price: 257,
-//       stock: true
-//     },
-//     {
-//       id: 3,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN80',
-//       price: 340,
-//       stock: false
-//     },
-//     {
-//       id: 4,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN100',
-//       price: 470,
-//       stock: true
-//     },
-//   ]);
 
-//   const [initCardArr, setInitCardArr] = useState([...cardArr]);
+// const App = () => {
+//   const [counter, setCounter] = React.useState(0);
 
-//   const delCardAtBegining = () => {
-//     const newCardArr = [...cardArr]
-//     newCardArr.shift()
-//     setCardArr(newCardArr)
+//   const incCounter = () => {
+//     setCounter(counter + 1)
 //   }
+//   React.useEffect(() => {
+//     console.log('Componet Did Mount Parent')
+//   }, []) // ===аналог componentDidMount с пустым массивом===
 
-//   const delCardAtEnd = () => {
-//     const newCardArr = [...cardArr]
-//     newCardArr.pop()
-//     setCardArr(newCardArr)
-//   }
+//   React.useEffect(() => {
+//     // if (counter) {     // запускается первый раз и потом после изменения counter. чтобы этого избежать условие if, чтобы первый раз не пускалось
+//     //   console.log('Componet Did Update Parent');
+//     // }
+//     console.log('Componet Did Update Parent');
+//     return () => console.log('Componet Will Unmount Parent');
+//     // === сначала выполняется return (), а потом Did Update Parent. т.е. сначала после return можно подчистить, а потом запустить выше===
+//   }, [counter]) // ===аналог componentDidUpdate с пустым массивом===
 
-//   const revert = () => {
-//     const newCardArr = [...initCardArr]
-//     setCardArr(newCardArr)
-//   }
 
+//   console.log('parent render')
 //   return (
 //     <div className='App'>
-//       <div className='cardCont'>
-//         <Card card={cardArr} />
-//       </div>
-//       <button onClick={delCardAtBegining}> Delete Card at the begining</button>
-//       <button onClick={delCardAtEnd}> Delete Card at the end</button>
-//       <button onClick={revert}> Revert</button>
+//       <h1 onClick={incCounter}>Hello {counter}</h1>
+//       {!!(counter % 2) && <Comp />}
 //     </div>
-//   );
-// }
 
-// export default App;
-
-
-
-// // ======== 3 ======
-
-// import React, { useState } from 'react';
-// import './App.css';
-
-// const Card = ({ cardArr }) => {
-
-//   const [removeState, setRemoveState] = useState([...cardArr]);
-//   const [initcardArr1, setInitCardArr1] = useState([...cardArr])
-//   const removeEachCard = (id) => {
-//     console.log('id', id);
-//     console.log('removeState', removeState);
-//     setRemoveState(removeState.filter((elem) => elem.id !== id))
-//   }
-
-//   const revert = () => setRemoveState([...initcardArr1])
-
-//   return (
-
-//     <div>
-//       <div className='cont2'>
-//         {removeState.map(removeState => (
-//           <div className='card'>
-//             <h2>{removeState.nameOfGoods}</h2>
-//             <p>Size: {removeState.size}</p>
-//             <p>Price: {removeState.price} hrn</p>
-//             {removeState.stock == true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
-//             <button onClick={() => removeEachCard(removeState.id)}>Remove</button>
-//           </div >))}
-//       </div>
-//       <button onClick={revert}> Revert</button>
-//     </div>
 //   )
-
 // }
 
-// function App() {
-
-
-//   const [cardArr, setCardArr] = useState([
-//     {
-//       id: 1,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN50',
-//       price: 220,
-//       stock: false
-//     },
-//     {
-//       id: 2,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN65',
-//       price: 257,
-//       stock: true
-//     },
-//     {
-//       id: 3,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN80',
-//       price: 340,
-//       stock: false
-//     },
-//     {
-//       id: 4,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN100',
-//       price: 470,
-//       stock: true
-//     },
-//   ]);
-
-//   const [initCardArr, setInitCardArr] = useState([...cardArr]);
-
-//   const revert = () => {
-//     console.log('cardArr', cardArr);
-//     console.log('initCardArr', initCardArr);
-//     const newCardArr = [...initCardArr]
-//     setCardArr(newCardArr)
-//   }
-
-//   return (
-//     <div className='App'>
-//       <div>
-//         {console.log('ren cardArr', cardArr)}
-//         <Card cardArr={cardArr} />
-//       </div>
-//     </div>
-//   );
-// }
 
 // export default App;
 
+// ====пример с фетчами====
+
+import React, { useEffect, useState } from 'react';
+import './App.css'
+
+const url = ' https://jsonplaceholder.typicode.com/todos';
+
+const App = () => {
+  const [counter, setCounter] = React.useState(1);
+  const [todos, setTodos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const incCounter = () => {
+    setCounter(counter + 1)
+  }
+
+  const fetchTodos = async () => {
+    setIsLoading(true)
+    const response = await fetch(url);
+    const data = await response.json();
+    // setTimeout(() => { //эмуляция работы с
+    setTodos(data)
+    setIsLoading(false)
+    // }, 1000)
+  }
+
+  useEffect(() => {
+    fetchTodos()
+  }, [counter])
 
 
-// // ================== 4  =====================
-// // 4   написати тогл компоненту, яка буде ховати або показувати елемент приклад з візуалкою тут https://material-ui.com/components/switches/#customized-switches
-
-
-
-import './App.css';
-import Toggle from './Toggle'
-
-import React from 'react';
-
-function App(props) {
   return (
     <div>
-      <Toggle />
+      <h1 onClick={incCounter}>Hello {counter}</h1>
+      {!todos.length && isLoading && (<h2>Loadin DATA..</h2>)
+      }
+
+      {!!todos.length && (
+        todos.map((el) => {
+          return (
+            <>
+
+              <hr />
+              <h3>{el.title} - {el.completed.toString()}</h3>
+              <hr />
+            </>)
+        })
+      )}
     </div>
-  );
+  )
 }
-
 export default App;
-
-
