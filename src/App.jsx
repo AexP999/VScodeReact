@@ -195,19 +195,19 @@
 
 
 
-// import './App.css';
-// import Toggle from './Toggle'
+import './App.css';
+import Toggle from './Toggle'
 
-// import React from 'react';
+import React from 'react';
 
-// function App(props) {
-//   return (
-//     <div>
-//       <Toggle />
-//     </div>
-//   );
-// }
+function App(props) {
+  return (
+    <div>
+      <Toggle />
+    </div>
+  );
+}
 
-// export default App;
+export default App;
 
 
