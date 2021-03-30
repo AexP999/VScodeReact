@@ -129,53 +129,53 @@
 
 // ====пример с фетчами====
 
-import React, { useEffect, useState } from 'react';
-import './App.css'
+// import React, { useEffect, useState } from 'react';
+// import './App.css'
 
-const url = ' https://jsonplaceholder.typicode.com/todos';
+// const url = ' https://jsonplaceholder.typicode.com/todos';
 
-const App = () => {
-  const [counter, setCounter] = React.useState(1);
-  const [todos, setTodos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+// const App = () => {
+//   const [counter, setCounter] = React.useState(1);
+//   const [todos, setTodos] = useState([]);
+//   const [isLoading, setIsLoading] = useState(false);
 
-  const incCounter = () => {
-    setCounter(counter + 1)
-  }
+//   const incCounter = () => {
+//     setCounter(counter + 1)
+//   }
 
-  const fetchTodos = async () => {
-    setIsLoading(true)
-    const response = await fetch(url);
-    const data = await response.json();
-    // setTimeout(() => { //эмуляция работы с
-    setTodos(data)
-    setIsLoading(false)
-    // }, 1000)
-  }
+//   const fetchTodos = async () => {
+//     setIsLoading(true)
+//     const response = await fetch(url);
+//     const data = await response.json();
+//     // setTimeout(() => { //эмуляция работы с
+//     setTodos(data)
+//     setIsLoading(false)
+//     // }, 1000)
+//   }
 
-  useEffect(() => {
-    fetchTodos()
-  }, [counter])
+//   useEffect(() => {
+//     fetchTodos()
+//   }, [counter])
 
 
-  return (
-    <div>
-      <h1 onClick={incCounter}>Hello {counter}</h1>
-      {!todos.length && isLoading && (<h2>Loadin DATA..</h2>)
-      }
+//   return (
+//     <div>
+//       <h1 onClick={incCounter}>Hello {counter}</h1>
+//       {!todos.length && isLoading && (<h2>Loadin DATA..</h2>)
+//       }
 
-      {!!todos.length && (
-        todos.map((el) => {
-          return (
-            <>
+//       {!!todos.length && (
+//         todos.map((el) => {
+//           return (
+//             <>
 
-              <hr />
-              <h3>{el.title} - {el.completed.toString()}</h3>
-              <hr />
-            </>)
-        })
-      )}
-    </div>
-  )
-}
-export default App;
+//               <hr />
+//               <h3>{el.title} - {el.completed.toString()}</h3>
+//               <hr />
+//             </>)
+//         })
+//       )}
+//     </div>
+//   )
+// }
+// export default App;
