@@ -6,9 +6,10 @@ function App(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(e);
+    console.log('event', e);
     // ==== типа два способа, чтобы вытащить данные ===
     // 1
+
     const {
       target: [
         { value: firstname },
@@ -16,16 +17,30 @@ function App(props) {
         { value: email },
         { value: age },
         { value: pass }] } = e;
-    console.log(firstname, lastname, email);
-    // alert(
-    //   JSON.stringify({
-    //     firstname,
-    //     lastname,
-    //     email,
-    //     age,
-    //     pass
-    //   })
-    // )
+    //     const {
+    //       target: {
+    //         elements: { firstname
+    // lastname
+    // email
+    // age
+    // pass
+
+    //         }
+    //   }
+    // }
+
+
+
+    console.log(firstname, lastname, email, age, pass);
+    alert(
+      JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        age,
+        pass
+      }, null, 2)
+    )
   }
 
 
@@ -36,19 +51,19 @@ function App(props) {
       {/* <input type="text" placeholder='hello' defaultValue='some init value' /> */}
       <form onSubmit={onSubmit}>
 
-        <input type="text" placeholder='enter your first name' defaultValue='Al' />
+        <input type="text" name='first name' placeholder='enter your first name' defaultValue='Al' />
 
         <br />
-        <input type="text" placeholder='enter your first last name' defaultValue='Prus' />
+        <input type="text" name='last name' placeholder='enter your last name' defaultValue='Prus' />
 
         <br />
-        <input type="email" placeholder='enter your first email' defaultValue='Ala@gmail.com' />
+        <input type="email" name='email' placeholder='enter your email' defaultValue='Ala@gmail.com' />
 
         <br />
-        <input type="number" placeholder='enter your first age' defaultValue='12' />
+        <input type="number" name='age' placeholder='enter your age' defaultValue='12' />
 
         <br />
-        <input type="password" placeholder='enter your first pass' defaultValue='afs^8HVB2' />
+        <input type="password" name='pass' placeholder='enter your pass' defaultValue='afs^8HVB2' />
         <br />
 
         <button type='submit' >Submit</button>
