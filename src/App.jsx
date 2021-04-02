@@ -1,6 +1,20 @@
 import React from 'react';
 import './App.css'
 
+
+function App() {
+  return (
+    <div>
+
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
 // function App(props) {
 
 //   const onSubmit = (e) => {
@@ -202,91 +216,91 @@ import './App.css'
 
 // ====можем еще больше скоротити код
 
-function App() {
+// function App() {
 
-  const [userData, setUserData] = React.useState({
-    firstName: 'Al',
-    lastName: 'Pr',
-    age: '32',
-    email: 'asdad@asd',
-    pass: 'sq3rdf3',
+//   const [userData, setUserData] = React.useState({
+//     firstName: 'Al',
+//     lastName: 'Pr',
+//     age: '32',
+//     email: 'asdad@asd',
+//     pass: 'sq3rdf3',
 
-  })
+//   })
 
-  const handleSubmit = () => {
-    alert(JSON.stringify(userData, null, 2))
-    setUserData({
-      firstName: '',
-      lastName: '',
-      age: '',
-      email: '',
-      pass: '',
-    })
-    // сброс данных после сабмита
-  }
-  //теперь сюда прилетает ивент
-  const updateUserData = (e) => {
-    const { target: { value, name } } = e;
+//   const handleSubmit = () => {
+//     alert(JSON.stringify(userData, null, 2))
+//     setUserData({
+//       firstName: '',
+//       lastName: '',
+//       age: '',
+//       email: '',
+//       pass: '',
+//     })
+//     // сброс данных после сабмита
+//   }
+//   //теперь сюда прилетает ивент
+//   const updateUserData = (e) => {
+//     const { target: { value, name } } = e;
 
-    if (name === 'age' && Number(value) > 99) {
-      return;
-    } ///валидация проверка на возраст
+//     if (name === 'age' && Number(value) > 99) {
+//       return;
+//     } ///валидация проверка на возраст
 
-    setUserData({ ...userData, [name]: value })
-  }
+//     setUserData({ ...userData, [name]: value })
+//   }
   // вместо setFirstName setLastName и т.д. в инпутах сатвим updateUserData
-  return (
-    <div className='App'>
-      <h3>input</h3>
+//   return (
+//     <div className='App'>
+//       <h3>input</h3>
 
 
-      <input
-        value={userData.firstName}
-        onChange={updateUserData}
-        type="text"
-        name='firstName'
-        placeholder='enter your first name'
-      />
-      <br />
-      <input
-        value={userData.lastName}
-        onChange={updateUserData}
-        type="text"
-        name='lastName'
-        placeholder='enter your last name'
-      />
-      <br />
-      <input
-        value={userData.age}
-        onChange={updateUserData}
-        type="number" name='age'
-        placeholder='enter your age'
-      />
-      <br />
-      <input
-        value={userData.email}
-        onChange={updateUserData}
-        type="email" name='email'
-        placeholder='enter your email'
-      />
-      <br />
-      <input
-        value={userData.pass}
-        onChange={updateUserData}
-        type="password"
-        name='pass'
-        placeholder='enter your pass'
-      />
-      <br />
+//       <input
+//         value={userData.firstName}
+//         onChange={updateUserData}
+//         type="text"
+//         name='firstName'
+//         placeholder='enter your first name'
+//       />
+//       <br />
+//       <input
+//         value={userData.lastName}
+//         onChange={updateUserData}
+//         type="text"
+//         name='lastName'
+//         placeholder='enter your last name'
+//       />
+//       <br />
+//       <input
+//         value={userData.age}
+//         onChange={updateUserData}
+//         type="number" name='age'
+//         placeholder='enter your age'
+//       />
+//       <br />
+//       <input
+//         value={userData.email}
+//         onChange={updateUserData}
+//         type="email" name='email'
+//         placeholder='enter your email'
+//       />
+//       <br />
+//       <input
+//         value={userData.pass}
+//         onChange={updateUserData}
+//         type="password"
+//         name='pass'
+//         placeholder='enter your pass'
+//       />
+//       <br />
 
-      <button onClick={handleSubmit}>Submit</button>
+//       <button onClick={handleSubmit}>Submit</button>
 
 
-    </div>
-  );
-}
+//     </div>
+//   );
+// }
 
 // вывод, это удобно, но можно использовать с рефами. Например фокус
 
 
-export default App;
+// export default App;
