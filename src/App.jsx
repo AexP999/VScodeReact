@@ -105,7 +105,7 @@ const Todos = ({ fetchedData }) => {
                 <p>userId: {item.userId}</p>
                 <p>id: {item.id}</p>
                 <p>title: {item.title}</p>
-                <p>completed: {item.completed}</p>
+                <p>completed: {String(item.completed)}</p>
               </li>
             )
           })}
