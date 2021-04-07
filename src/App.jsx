@@ -1,132 +1,44 @@
-// import React, { useState, createContext, useContext } from 'react';
-// import './App.css';
+import React, { useEffect, useState, Component } from 'react'
+import './App.css'
+let url = 'https://jsonplaceholder.typicode.com/'
 
-// const CounterContex = createContext();
+// потрібно створити логіку, яка задовільнить наступні вимоги
+// в нас має бути 6 кнопок, які дозволяють нам переключатись між 'табами' (posts, comments, albums, photos, todos, users)
+// дефолтно обрана таба- пости
+// по кліку на кнопку ми повинні підтягнути відповідний список і зрендерити його через .map
+// лише 1 список видимий одночасно
+// потрібно створити 6 компонент, які займатимуться рендерінгом списків (отримуватимуть пропсами список)- PostList, CommentsList...
 
-
-// const ContexProvider = ({ children }) => {
-//   const [counter, SetCounter] = useState(0);
-
-//   const incCounter = () => {
-//     SetCounter(counter + 1)
-//   }
-//   const decCounter = () => {
-//     SetCounter(counter - 1)
-//   }
-
-//   return (
-//     <CounterContex.Provider value={{
-//       counter,
-//       incCounter,
-//       decCounter
-//     }}>
-//       {children}
-//     </CounterContex.Provider>
-//   )
-// }
-
-// const Counter = () => {
-//   const { counter, incCounter, decCounter } = useContext(CounterContex)
-
-//   return (
-//     <>
-//       <h3 >Counter: {counter}</h3>
-//       <button onClick={incCounter}>+</button>
-//       <button onClick={decCounter}>-</button>
-//     </>
-//   )
-// }
-// const Header = () => {
-//   const { counter } = useContext(CounterContex)
-
-//   return (
-//     <h1>Header counter: {counter}</h1>
-//   )
-// }
-
-// function App(props) {
-
-//   return (
-//     <div className='App'>
-//       <ContexProvider>
-//         <Header />
-//         <Counter />
-//       </ContexProvider>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-
-// ==== далі тудушки ===
-
-import React, { useState, createContext, useContext } from 'react';
-import './App.css';
-import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom'
-//1 список туду, де ми можемо маркувати їх як виконані або удаляти
-// форма для нової туду
-
-const TodosList = () => {
-  return (
-    <h1>todos List</h1>
-  )
-}
-const AddTodo = () => {
-  const [todoValues, setTodoValues] = useState({
-    title: '',
-    description: '',
-  })
-
-  const onTodoChange = ({ target: { name, value } }) => setTodoValues({ ...todoValues, [name]: value })
-
-  const onCreate = () => {
-    setTodoValues({
-      title: '',
-      description: '',
-    })
-  }
-
-  return (
-    <div>
-      <input onChange={onTodoChange} value={todoValues.title} type="text" name="title" placeholder="todo title" />
-      <br />
-      <input onChange={onTodoChange} value={todoValues.description} type="text" name="description" placeholder="todo description" />
-      <br />
-      <button onClick={onCreate}>add todo</button>
-    </div>
-
-  )
-}
-
-const Header = () => {
-  return (
-    <header>
-      <Link to="/">list</Link>
-      <Link to="/create-todo">add new todo</Link>
-    </header>
-  )
-}
 
 function App() {
 
+  // это упрощенный код - только одна кнопка, нет мар. по нажатию кнопки должен выводиться один элемент posts. я думал, что переда. пропс в компоненту - она должна перерендиваться (так сказано в лекции). фактически вобще ничего не выводится
+
+  const PostsComponent = ({ props }) => {
+    return (
+      <section>
+        <div>
+          {props.title}
+        </div>
+      </section>
+    )
+  }
+
+
+  const fetchEndPoint = async () => {
+    const response = await fetch(url + 'posts/1')
+    const data = await response.json()
+    console.log(data)
+    return (
+      <PostsComponent props={data} />
+    )
+  }
+
   return (
-    <main className="App">
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/" exact>
-            <TodosList />
-          </Route>
-
-          <Route path="/create-todo">
-            <AddTodo />
-          </Route>
-        </Switch>
-      </Router>
-
-    </main>
-  );
+    <>
+      <button onClick={fetchEndPoint}>Posts are here</button>
+    </>
+  )
 }
 
-export default App;
+export default App
