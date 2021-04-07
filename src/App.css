@@ -46,10 +46,14 @@
 
 header{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 10px;
   background: lightgoldenrodyellow;
 }
+header a {
+  padding: 10px;
+}
+
 .card {
   
   margin: 10px;
