@@ -9,34 +9,34 @@ let url = 'https://jsonplaceholder.typicode.com/'
 // лише 1 список видимий одночасно
 // потрібно створити 6 компонент, які займатимуться рендерінгом списків (отримуватимуть пропсами список)- PostList, CommentsList...
 
+const PostsComponent = ({ props }) => {
+  console.log('props', props);
+  return (
+    <section>
+      <div>
+        {props.title}
+      </div>
+    </section>
+  )
+}
 
 function App() {
 
   // это упрощенный код - только одна кнопка, нет мар. по нажатию кнопки должен выводиться один элемент posts. я думал, что переда. пропс в компоненту - она должна перерендиваться (так сказано в лекции). фактически вобще ничего не выводится
-
-  const PostsComponent = ({ props }) => {
-    return (
-      <section>
-        <div>
-          {props.title}
-        </div>
-      </section>
-    )
-  }
+  const [fetchedData, setFetchedData] = useState([]);
 
 
   const fetchEndPoint = async () => {
     const response = await fetch(url + 'posts/1')
     const data = await response.json()
     console.log(data)
-    return (
-      <PostsComponent props={data} />
-    )
+    setFetchedData(data);
   }
 
   return (
     <>
       <button onClick={fetchEndPoint}>Posts are here</button>
+      <PostsComponent props={fetchedData} />
     </>
   )
 }
