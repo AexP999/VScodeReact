@@ -68,8 +68,8 @@ function App() {
       default:
         break;
     }
-
-    if (enteredData.id === '' || enteredData.id >= 1 && enteredData.id <= maxId) {
+    if (enteredData.id === '') return true;
+    if (enteredData.id >= 1 && enteredData.id <= maxId) {
       return true;
     } else {
       setupdatedataJson([]);
@@ -79,7 +79,6 @@ function App() {
   }
 
   const fetchData = async () => {
-
     const response = await fetch(`${JSP_URL}${enteredData.endPoint}/${enteredData.id}`);
     const data = await response.json();
     setupdatedataJson(data);
@@ -116,10 +115,23 @@ function App() {
 
       <ul>
         {updatedataJson.id ?
-          (<li>id: {updatedataJson.id} <br /> name: {updatedataJson.name ?? ' n/a'}<br /> title: {updatedataJson.title ?? ' n/a'}</li>) :
+          (<li>
+            id: {updatedataJson.id} <br />
+            name: {updatedataJson.name ?? ' n/a'}<br />
+            title: {updatedataJson.title ?? ' n/a'}
+          </li>
+          ) :
           (!!updatedataJson.length && updatedataJson.map((elem, i) => {
-            return (<li key={i}>id: {elem.id} <br /> name: {elem.name ?? ' n/a'} <br /> title: {elem.title ?? ' n/a'}</li>)
-          }))}
+            return (
+              <li key={i}>
+                id: {elem.id} <br />
+                name: {elem.name ?? ' n/a'} <br />
+                title: {elem.title ?? ' n/a'}
+              </li>
+            )
+          })
+          )
+        }
       </ul>
     </div>
   );
