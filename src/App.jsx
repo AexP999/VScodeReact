@@ -146,7 +146,7 @@ const AddTodo = () => {
 
   const onTodoChange = ({target: {name, value}}) =>
     setTodoValues({...todoValues, [name]: value});
-  console.log('todoValues', todoValues);
+
   const onCreate = () => {
     onTodoCreate({...todoValues, id: Math.random()});
     setTodoValues({
@@ -155,7 +155,7 @@ const AddTodo = () => {
       id: null,
     });
   };
-
+  console.log('render AddTodo');
   return (
     <div>
       <input
@@ -180,6 +180,7 @@ const AddTodo = () => {
 };
 
 const Header = () => {
+
   return (
     <header>
       <Link to='/'>list</Link>
