@@ -163,20 +163,58 @@ import {
     incCustomAction2,
     decAction2,
     resetAction2,
+    onUserLoaded,
+    onAddToBad,
+    onRemoveFromBad
 } from './redux/action-creators'
 
+
 const PhotosList = () => {
+    const dispatch = useDispatch()
+    const users = useSelector(({userReducer: {users}}) => users);
+    const badEmployees = useSelector(({userReducer: {badEmployees}}) => badEmployees);
 
     const fetchPhotos = async () => {
-        const resp = await fetch('https://dummyapi.io/data/api/user?limit=10');
+        const resp = await fetch('https://dummyapi.io/data/api/user?limit=10', {
+            headers: {'app-id': 'lTE5abbDxdjGplutvTuc'}
+        });
         const json = await resp.json();
-        console.log(json);
+        dispatch(onUserLoaded(json.data))
+
     }
     useEffect(() => {
-        fetchPhotos();
+        if (!users.length) {
+            fetchPhotos();
+        }
     }, [])
+
     return (
-        <h1>Photos List</h1>
+        <div>
+            <h1>Photos List</h1>
+            <div className='container'>
+                {
+                    users.map(el => (
+                        <div style={{padding: '10px'}} key={el.id}>
+                            <img style={{
+                                filter: badEmployees.includes(el.id) ? 'opacity(.3)' : ''
+                            }}
+                                onClick={() => {
+                                    const alreadyInList = badEmployees.includes(el.id);
+                                    const answer = !alreadyInList && window.confirm('точно звільнити?');
+                                    if (answer) {
+                                        return dispatch(onAddToBad(el.id))
+                                    }
+                                    alreadyInList && dispatch(onRemoveFromBad(el.id))
+
+                                }}
+                                src={el.picture} alt={el.lastName} />
+                            <p>{el.title}. {el.firstName} {el.lastName}</p>
+
+                        </div>
+                    ))
+                }
+            </div >
+        </div >
     )
 }
 
@@ -195,7 +233,7 @@ function App() {
     console.log('render');
     return (
         <div className='App'>
-            <PhotosList />
+            {!!(counter1 % 2) && <PhotosList />}
             <h1>{counter1} - 1</h1>
             <h1>{counter2} - 2</h1>
             <hr />
@@ -214,3 +252,74 @@ function App() {
 
 
 export default App
+
+// ===Это пример для демонстрации redux ===
+
+
+// import React from 'react';
+// import './App.css'
+// import {createStore} from 'redux';
+
+// const initialState = {
+//     name: 'Paul',
+//     secondName: 'Petrov',
+//     age: 20
+// }
+
+// const reducer = (state = initialState, action) => {
+//     console.log('state', state);
+//     switch (action.type) {
+//         case 'CHANGE_NAME':
+//             return {
+//                 ...state, name: action.payload
+//             }
+//         case 'CHANGE_SECOND_NAME':
+//             return {
+//                 ...state, secondName: action.payload
+//             }
+//         case 'CHANGE_AGE':
+//             return {
+//                 ...state, age: action.payload
+//             }
+//         default:
+//             return state
+//     }
+// }
+
+// const store = createStore(reducer);
+// console.log('store', store.getState());
+
+// const changeName = {
+//     type: 'CHANGE_NAME',
+//     payload: 'Ivan'
+// }
+
+// const changeSecondName = {
+//     type: 'CHANGE_SECOND_NAME',
+//     payload: 'Ivanov'
+// }
+
+// const changeAge = {
+//     type: 'CHANGE_AGE',
+//     payload: '30'
+// }
+
+// store.dispatch(changeName);
+// console.log('changeName', store.getState());
+
+// store.dispatch(changeSecondName);
+// console.log('changeSecondName', store.getState());
+
+// store.dispatch(changeAge);
+// console.log('changeAge', store.getState());
+
+
+// function App(props) {
+//     return (
+//         <div>
+
+//         </div>
+//     );
+// }
+
+// export default App;
