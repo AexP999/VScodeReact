@@ -163,10 +163,12 @@ import {
     incCustomAction2,
     decAction2,
     resetAction2,
+} from './redux/action-creators'
+import {
     onUserLoaded,
     onAddToBad,
     onRemoveFromBad
-} from './redux/action-creators'
+} from './redux/action-creators/user-action-creator'
 
 
 const PhotosList = () => {
@@ -217,6 +219,7 @@ const PhotosList = () => {
         </div >
     )
 }
+
 
 
 function App() {
