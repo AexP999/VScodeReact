@@ -170,7 +170,6 @@ import {
     onRemoveFromBad
 } from './redux/action-creators/user-action-creator'
 
-
 const PhotosList = () => {
     const dispatch = useDispatch()
     const users = useSelector(({userReducer: {users}}) => users);
