@@ -235,7 +235,7 @@ function App() {
     console.log('render');
     return (
         <div className='App'>
-            {!!(counter1 % 2) && <PhotosList />}
+            {/* {!!(counter1 % 2) && <PhotosList />} */}
             <h1>{counter1} - 1</h1>
             <h1>{counter2} - 2</h1>
             <hr />
