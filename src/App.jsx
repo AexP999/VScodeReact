@@ -417,21 +417,35 @@ const Products = () => {
             dispatch(startProductsLoading())
             const resp = await fetch('https://fakestoreapi.com/products')
             const json = await resp.json();
-            dispatch(setProducts(json))
+            dispatch(setProducts(json));
             console.log(json);
         } catch (e) {
-            console.error(e)
+            console.error('ошибка', e)
+        } finally {
+            dispatch(endProductsLoading())
         }
-    }
+    }// если возникает ошибка при загрузке, то loading будет все время. для этого  dispatch(endProductsLoading()) можно поставить в catch, но лучше в final
     React.useEffect(() => {
         fetchtProducts()
     }, [])
 
+    //для введения trunk commit
+
     return (
         <div>
-            Product List
+
             {isLoading && (
                 <h2 style={{color: 'red'}}>LOADING</h2>
+            )}
+
+            {!isLoading && !!products.length && products.map(el =>
+                <div key={el.id}>
+                    <h3>{el.title}</h3>
+                    <h4>{el.price} USD</h4>
+                    <h4>{el.description}</h4>
+                    <img src={el.image} alt="" />
+                    <hr />
+                </div>
             )}
         </div>
     )
