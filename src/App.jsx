@@ -149,111 +149,113 @@
 
 // ===консультация===
 
-import React, {useEffect} from 'react';
-import './App.css'
-import {useSelector, useDispatch} from 'react-redux';
-import {
-    incAction,
-    incCustomAction,
-    decAction,
-    resetAction,
-} from './redux/action-creators'
-import {
-    incAction2,
-    incCustomAction2,
-    decAction2,
-    resetAction2,
-} from './redux/action-creators'
-import {
-    onUserLoaded,
-    onAddToBad,
-    onRemoveFromBad
-} from './redux/action-creators/user-action-creator'
+// import React, {useEffect} from 'react';
+// import './App.css'
+// import {useSelector, useDispatch} from 'react-redux';
+// import {
+//     incAction,
+//     incCustomAction,
+//     decAction,
+//     resetAction,
+// } from './redux/action-creators'
+// import {
+//     incAction2,
+//     incCustomAction2,
+//     decAction2,
+//     resetAction2,
+// } from './redux/action-creators'
+// import {
+//     onUserLoaded,
+//     onAddToBad,
+//     onRemoveFromBad
+// } from './redux/action-creators/user-action-creator'
 
-const PhotosList = () => {
-    const dispatch = useDispatch()
-    const users = useSelector(({userReducer: {users}}) => users);
-    const badEmployees = useSelector(({userReducer: {badEmployees}}) => badEmployees);
+// const PhotosList = () => {
+//     const dispatch = useDispatch()
+//     const users = useSelector(({userReducer: {users}}) => users);
+//     const badEmployees = useSelector(({userReducer: {badEmployees}}) => badEmployees);
 
-    const fetchPhotos = async () => {
-        const resp = await fetch('https://dummyapi.io/data/api/user?limit=10', {
-            headers: {'app-id': 'lTE5abbDxdjGplutvTuc'}
-        });
-        const json = await resp.json();
-        dispatch(onUserLoaded(json.data))
+//     const fetchPhotos = async () => {
+//         const resp = await fetch('https://dummyapi.io/data/api/user?limit=10', {
+//             headers: {'app-id': '607ee368cad48d5a72f3a17a'}
+//         });
+//         const json = await resp.json();
+//         console.log(json);
+//         dispatch(onUserLoaded(json.data))
 
-    }
-    useEffect(() => {
-        if (!users.length) {
-            fetchPhotos();
-        }
-    }, [])
+//     }
 
-    return (
-        <div>
-            <h1>Photos List</h1>
-            <div className='container'>
-                {
-                    users.map(el => (
-                        <div style={{padding: '10px'}} key={el.id}>
-                            <img style={{
-                                filter: badEmployees.includes(el.id) ? 'opacity(.3)' : ''
-                            }}
-                                onClick={() => {
-                                    const alreadyInList = badEmployees.includes(el.id);
-                                    const answer = !alreadyInList && window.confirm('точно звільнити?');
-                                    if (answer) {
-                                        return dispatch(onAddToBad(el.id))
-                                    }
-                                    alreadyInList && dispatch(onRemoveFromBad(el.id))
+//     useEffect(() => {
+//         if (!users.length) {
+//             fetchPhotos();
+//         }
+//     }, [])
 
-                                }}
-                                src={el.picture} alt={el.lastName} />
-                            <p>{el.title}. {el.firstName} {el.lastName}</p>
+//     return (
+//         <div>
+//             <h1>Photos List</h1>
+//             <div className='container'>
+//                 {
+//                     users.map(el => (
+//                         <div style={{padding: '10px'}} key={el.id}>
+//                             <img style={{
+//                                 filter: badEmployees.includes(el.id) ? 'opacity(.3)' : ''
+//                             }}
+//                                 onClick={() => {
+//                                     const alreadyInList = badEmployees.includes(el.id);
+//                                     const answer = !alreadyInList && window.confirm('точно звільнити?');
+//                                     if (answer) {
+//                                         return dispatch(onAddToBad(el.id))
+//                                     }
+//                                     alreadyInList && dispatch(onRemoveFromBad(el.id))
 
-                        </div>
-                    ))
-                }
-            </div >
-        </div >
-    )
-}
+//                                 }}
+//                                 src={el.picture} alt={el.lastName} />
+//                             <p>{el.title}. {el.firstName} {el.lastName}</p>
 
-
-
-function App() {
-    const counter1 = useSelector(({counter1: {counter}}) => {
-        return counter;
-    });
-    const counter2 = useSelector(({counter2: {counter}}) => {
-        return counter;
-    });
+//                         </div>
+//                     ))
+//                 }
+//             </div >
+//         </div >
+//     )
+// }
 
 
-    const dispatch = useDispatch();
-
-    console.log('render');
-    return (
-        <div className='App'>
-            {/* {!!(counter1 % 2) && <PhotosList />} */}
-            <h1>{counter1} - 1</h1>
-            <h1>{counter2} - 2</h1>
-            <hr />
-            <button onClick={() => dispatch(incCustomAction(102))}>inc custom 102</button>             {/* добавили еще один аргумент */}
-            <button onClick={() => dispatch(incAction())}>inc1</button>
-            <button onClick={() => dispatch(decAction())}>dec1</button>
-            <button onClick={() => dispatch(resetAction())}>reset1</button>
-            <hr />
-            <button onClick={() => dispatch(incCustomAction2(50))}>inc custom  50</button>             {/* добавили еще один аргумент */}
-            <button onClick={() => dispatch(incAction2())}>inc2</button>
-            <button onClick={() => dispatch(decAction2())}>dec2</button>
-            <button onClick={() => dispatch(resetAction2())}>reset2</button>
-        </div>
-    );
-}
+// function App() {
+//     const counter1 = useSelector(({counter1: {counter}}) => {
+//         return counter;
+//     });
+//     const counter2 = useSelector(({counter2: {counter}}) => {
+//         return counter;
+//     });
 
 
-export default App
+//     const dispatch = useDispatch();
+
+//     console.log('render');
+//     return (
+//         <div className='App'>
+//             {/* {!!(counter1 % 2) && <PhotosList />} */}
+
+//             <h1>{counter1} - 1</h1>
+//             <h1>{counter2} - 2</h1>
+//             <hr />
+//             <button onClick={() => dispatch(incCustomAction(102))}>inc custom 102</button>             {/* добавили еще один аргумент */}
+//             <button onClick={() => dispatch(incAction())}>inc1</button>
+//             <button onClick={() => dispatch(decAction())}>dec1</button>
+//             <button onClick={() => dispatch(resetAction())}>reset1</button>
+//             <hr />
+//             <button onClick={() => dispatch(incCustomAction2(50))}>inc custom  50</button>             {/* добавили еще один аргумент */}
+//             <button onClick={() => dispatch(incAction2())}>inc2</button>
+//             <button onClick={() => dispatch(decAction2())}>dec2</button>
+//             <button onClick={() => dispatch(resetAction2())}>reset2</button>
+//         </div>
+//     );
+// }
+
+
+// export default App
 
 // ===Это пример для демонстрации redux ===
 
@@ -325,3 +327,137 @@ export default App
 // }
 
 // export default App;
+
+// == продолжение консультации==
+
+import React, {useEffect} from 'react';
+import './App.css'
+import {useSelector, useDispatch} from 'react-redux';
+import {
+    incAction,
+    incCustomAction,
+    decAction,
+    resetAction,
+} from './redux/action-creators'
+import {
+    incAction2,
+    incCustomAction2,
+    decAction2,
+    resetAction2,
+} from './redux/action-creators'
+import {
+    onUserLoaded,
+    onAddToBad,
+    onRemoveFromBad,
+    startProductsLoading,
+    endProductsLoading,
+    setProducts
+} from './redux/action-creators'
+
+const PhotosList = () => {
+    const dispatch = useDispatch()
+    const users = useSelector(({userReducer: {users}}) => users);
+    const badEmployees = useSelector(({userReducer: {badEmployees}}) => badEmployees);
+
+    const fetchPhotos = async () => {
+        const resp = await fetch('https://dummyapi.io/data/api/user?limit=10', {
+            headers: {'app-id': '607ee368cad48d5a72f3a17a'}
+        });
+        const json = await resp.json();
+        console.log(json);
+        dispatch(onUserLoaded(json.data))
+
+    }
+
+    useEffect(() => {
+        if (!users.length) {
+            fetchPhotos();
+        }
+    }, [])
+
+    return (
+        <div>
+            <h1>Photos List</h1>
+            <div className='container'>
+                {
+                    users.map(el => (
+                        <div style={{padding: '10px'}} key={el.id}>
+                            <img style={{
+                                filter: badEmployees.includes(el.id) ? 'opacity(.3)' : ''
+                            }}
+                                onClick={() => {
+                                    const alreadyInList = badEmployees.includes(el.id);
+                                    const answer = !alreadyInList && window.confirm('точно звільнити?');
+                                    if (answer) {
+                                        return dispatch(onAddToBad(el.id))
+                                    }
+                                    alreadyInList && dispatch(onRemoveFromBad(el.id))
+
+                                }}
+                                src={el.picture} alt={el.lastName} />
+                            <p>{el.title}. {el.firstName} {el.lastName}</p>
+
+                        </div>
+                    ))
+                }
+            </div >
+        </div >
+    )
+}
+
+const Products = () => {
+
+    const {products, isLoading} = useSelector(store => store.products)
+    console.log({products, isLoading});
+
+    const dispatch = useDispatch()
+
+    const fetchtProducts = async () => {
+        try {
+            dispatch(startProductsLoading())
+            const resp = await fetch('https://fakestoreapi.com/products')
+            const json = await resp.json();
+            dispatch(setProducts(json))
+            console.log(json);
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    React.useEffect(() => {
+        fetchtProducts()
+    }, [])
+
+    return (
+        <div>
+            Product List
+            {isLoading && (
+                <h2 style={{color: 'red'}}>LOADING</h2>
+            )}
+        </div>
+    )
+}
+
+
+function App() {
+    const counter1 = useSelector(({counter1: {counter}}) => {
+        return counter;
+    });
+    const counter2 = useSelector(({counter2: {counter}}) => {
+        return counter;
+    });
+
+
+    const dispatch = useDispatch();
+
+    console.log('render');
+    return (
+        <div className='App'>
+
+            <Products />
+
+        </div>
+    );
+}
+
+
+export default App
