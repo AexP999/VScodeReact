@@ -351,8 +351,6 @@ const Products = () => {
         dispatch(loadProducts())
     }, [])
 
-    //для введения trunk commit 11.10
-
     return (
         <div>
 
