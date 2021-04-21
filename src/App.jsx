@@ -334,76 +334,11 @@ import React, {useEffect} from 'react';
 import './App.css'
 import {useSelector, useDispatch} from 'react-redux';
 import {
-    incAction,
-    incCustomAction,
-    decAction,
-    resetAction,
-} from './redux/action-creators'
-import {
-    incAction2,
-    incCustomAction2,
-    decAction2,
-    resetAction2,
-} from './redux/action-creators'
-import {
-    onUserLoaded,
-    onAddToBad,
-    onRemoveFromBad,
     startProductsLoading,
     endProductsLoading,
-    setProducts
+    setProducts,
+    loadProducts
 } from './redux/action-creators'
-
-const PhotosList = () => {
-    const dispatch = useDispatch()
-    const users = useSelector(({userReducer: {users}}) => users);
-    const badEmployees = useSelector(({userReducer: {badEmployees}}) => badEmployees);
-
-    const fetchPhotos = async () => {
-        const resp = await fetch('https://dummyapi.io/data/api/user?limit=10', {
-            headers: {'app-id': '607ee368cad48d5a72f3a17a'}
-        });
-        const json = await resp.json();
-        console.log(json);
-        dispatch(onUserLoaded(json.data))
-
-    }
-
-    useEffect(() => {
-        if (!users.length) {
-            fetchPhotos();
-        }
-    }, [])
-
-    return (
-        <div>
-            <h1>Photos List</h1>
-            <div className='container'>
-                {
-                    users.map(el => (
-                        <div style={{padding: '10px'}} key={el.id}>
-                            <img style={{
-                                filter: badEmployees.includes(el.id) ? 'opacity(.3)' : ''
-                            }}
-                                onClick={() => {
-                                    const alreadyInList = badEmployees.includes(el.id);
-                                    const answer = !alreadyInList && window.confirm('точно звільнити?');
-                                    if (answer) {
-                                        return dispatch(onAddToBad(el.id))
-                                    }
-                                    alreadyInList && dispatch(onRemoveFromBad(el.id))
-
-                                }}
-                                src={el.picture} alt={el.lastName} />
-                            <p>{el.title}. {el.firstName} {el.lastName}</p>
-
-                        </div>
-                    ))
-                }
-            </div >
-        </div >
-    )
-}
 
 const Products = () => {
 
@@ -412,24 +347,11 @@ const Products = () => {
 
     const dispatch = useDispatch()
 
-    const fetchtProducts = async () => {
-        try {
-            dispatch(startProductsLoading())
-            const resp = await fetch('https://fakestoreapi.com/products')
-            const json = await resp.json();
-            dispatch(setProducts(json));
-            console.log(json);
-        } catch (e) {
-            console.error('ошибка', e)
-        } finally {
-            dispatch(endProductsLoading())
-        }
-    }// если возникает ошибка при загрузке, то loading будет все время. для этого  dispatch(endProductsLoading()) можно поставить в catch, но лучше в final
     React.useEffect(() => {
-        fetchtProducts()
+        dispatch(loadProducts())
     }, [])
 
-    //для введения trunk commit
+    //для введения trunk commit 11.10
 
     return (
         <div>
@@ -451,27 +373,14 @@ const Products = () => {
     )
 }
 
-
 function App() {
-    const counter1 = useSelector(({counter1: {counter}}) => {
-        return counter;
-    });
-    const counter2 = useSelector(({counter2: {counter}}) => {
-        return counter;
-    });
-
-
-    const dispatch = useDispatch();
 
     console.log('render');
     return (
         <div className='App'>
-
             <Products />
-
         </div>
     );
 }
-
 
 export default App
