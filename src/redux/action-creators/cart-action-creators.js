@@ -11,8 +11,11 @@ const removeProductFromCart = id => ({
 
 const toggleItemInCard = id => (dispatch, getState) => {
   const {cart: {productsInCart}} = getState ();
+  console.log ('productsInCart', productsInCart, 'id', id, '{productsInCart}', {
+    productsInCart,
+  });
 
-  const alreadyExists = productsInCart.find (el => el === id);
+  const alreadyExists = !!productsInCart.find (el => el === id);
   dispatch (alreadyExists ? removeProductFromCart (id) : addProductToCart (id));
 };
 

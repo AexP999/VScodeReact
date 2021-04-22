@@ -330,27 +330,43 @@
 
 // == продолжение консультации==
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import './App.css'
 import {useSelector, useDispatch} from 'react-redux';
 import {
-    startProductsLoading,
-    endProductsLoading,
-    setProducts,
-    loadProducts
+
+    loadProducts,
+    toggleItemInCard,
+    toggleItemInWishlist
 } from './redux/action-creators'
-import {toggleItemInCard} from './redux/action-creators/cart-action-creators';
 
 const Header = () => {
+    const {products, } = useSelector(store => store.products);
+    const {productsInCart} = useSelector(store => store.cart);
+    const {productsInWishlist} = useSelector(store => store.wishlist);
+
+    const calculatedCartSum = useMemo(() => {
+        return products
+            .filter(el => productsInCart
+                .includes(el.id))
+            .reduce((acc, el) => acc += el.price, 0)
+    }, [products, productsInCart])
+    const calculatedWishlistSum = useMemo(() => {
+        return products
+            .filter(el => productsInWishlist
+                .includes(el.id))
+            .reduce((acc, el) => acc += el.price, 0)
+    }, [products, productsInWishlist])
+
     return (
         <header>
             <h2>HEADER</h2>
             <div className='counters'>
                 <span>
-                    wishlist:0
+                    wishlist: {productsInWishlist.length} ($ {calculatedWishlistSum})
                 </span>
                 <span>
-                    cart:0
+                    cart: {productsInCart.length} ($ {calculatedCartSum})
                 </span>
             </div>
         </header>
@@ -363,12 +379,13 @@ const Products = () => {
 
     const {products, isLoading} = useSelector(store => store.products)
     const {productsInCart} = useSelector(store => store.cart)
+    const {productsInWishlist} = useSelector(store => store.wishlist)
 
     console.log({products, isLoading});
 
     const dispatch = useDispatch()
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(loadProducts())
     }, [])
 
@@ -384,8 +401,20 @@ const Products = () => {
                     <h3>{el.title}</h3>
                     <h4>{el.price} USD</h4>
                     <h4>{el.description}</h4>
-                    <button>add to wish</button>
-                    <button onClick={() => dispatch(toggleItemInCard(el.id))}>add to cart</button>
+
+                    <button style={{
+                        background: productsInWishlist.includes(el.id) ? 'red' : ''
+                    }} onClick={() => dispatch(toggleItemInWishlist(el.id))}>{productsInWishlist.includes(el.id)
+                        ? 'remove from wishlist'
+                        : 'add to wishlist'}
+                    </button>
+
+                    <button style={{
+                        background: productsInCart.includes(el.id) ? 'red' : ''
+                    }} onClick={() => dispatch(toggleItemInCard(el.id))}>{productsInCart.includes(el.id)
+                        ? 'remove from card'
+                        : 'add to cart'}
+                    </button>
                     <img src={el.image} alt="" />
 
                 </div>
