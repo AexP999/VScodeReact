@@ -46,9 +46,15 @@
 
 header{
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 10px;
+  align-items: baseline;
   background: lightgoldenrodyellow;
+  color: #282c34;
+}
+
+header span{
+  margin-right:20px ;
 }
 header a {
   padding: 10px;
@@ -96,8 +102,21 @@ ul{
 img {
   
   padding:10px;
-  max-width: 30%;
+  max-width: 60%;
 }
 .container div p{
   max-width: 120px;
+}
+
+.product-item{
+padding: 5px;
+margin: 10px;
+width: 30%;
+border: 1px solid lightgoldenrodyellow ;
+min-width: 300px;
+}
+
+.cartField{
+  display: flex;
+  flex-wrap: wrap;
 }

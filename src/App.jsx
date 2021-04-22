@@ -339,10 +339,31 @@ import {
     setProducts,
     loadProducts
 } from './redux/action-creators'
+import {toggleItemInCard} from './redux/action-creators/cart-action-creators';
+
+const Header = () => {
+    return (
+        <header>
+            <h2>HEADER</h2>
+            <div className='counters'>
+                <span>
+                    wishlist:0
+                </span>
+                <span>
+                    cart:0
+                </span>
+            </div>
+        </header>
+
+
+    )
+}
 
 const Products = () => {
 
     const {products, isLoading} = useSelector(store => store.products)
+    const {productsInCart} = useSelector(store => store.cart)
+
     console.log({products, isLoading});
 
     const dispatch = useDispatch()
@@ -352,19 +373,21 @@ const Products = () => {
     }, [])
 
     return (
-        <div>
+        <div className="cartField">
 
             {isLoading && (
                 <h2 style={{color: 'red'}}>LOADING</h2>
             )}
 
             {!isLoading && !!products.length && products.map(el =>
-                <div key={el.id}>
+                <div className="product-item" key={el.id}>
                     <h3>{el.title}</h3>
                     <h4>{el.price} USD</h4>
                     <h4>{el.description}</h4>
+                    <button>add to wish</button>
+                    <button onClick={() => dispatch(toggleItemInCard(el.id))}>add to cart</button>
                     <img src={el.image} alt="" />
-                    <hr />
+
                 </div>
             )}
         </div>
@@ -377,6 +400,7 @@ function App() {
     console.log('render');
     return (
         <div className='App'>
+            <Header />
             <Products />
         </div>
     );
