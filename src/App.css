@@ -103,6 +103,7 @@ img {
   
   padding:10px;
   max-width: 60%;
+  max-height: 50%;
 }
 .container div p{
   max-width: 120px;
