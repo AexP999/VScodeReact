@@ -334,7 +334,6 @@ import React, {useEffect, useMemo} from 'react';
 import './App.css'
 import {useSelector, useDispatch} from 'react-redux';
 import {
-
     loadProducts,
     toggleItemInCard,
     toggleItemInWishlist
