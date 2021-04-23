@@ -15,7 +15,7 @@ export const Products = () => {
   const dispatch = useDispatch ();
 
   useEffect (() => {
-    dispatch (loadProducts ());
+    dispatch (loadProducts ({limit: 5}));
   }, []);
 
   return (

@@ -40,7 +40,7 @@ const persistor = store => next => action => {
 //   }
 // };
 
-export const middlewares = [thunk, persistor, logger];
+export const middlewares = [thunk, persistor /*logger*/];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export const store = createStore (
@@ -50,7 +50,3 @@ export const store = createStore (
     applyMiddleware (...middlewares)
   )
 );
-
-// const fetchFn = async dispatch => {};
-
-// store.dispatch (loadProducts ());

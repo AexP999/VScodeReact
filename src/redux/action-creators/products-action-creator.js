@@ -4,17 +4,28 @@ import {
   SET_PRODUCTS,
 } from '../action-types';
 
+const qsHelper = params => {
+  const keys = Object.keys (params);
+
+  let result = '';
+  keys.forEach (el => {
+    result += `${el}=${params[el]}?`;
+  });
+  console.log ('result', result);
+};
+
 const startProductsLoading = () => ({type: START_PRODUCTS_LOADING});
 const endProductsLoading = () => ({type: END_PRODUCTS_LOADING});
 const setProducts = payload => ({type: SET_PRODUCTS, payload});
 
-const loadProducts = () => async dispatch => {
+const loadProducts = params => async dispatch => {
+  // 'limit5?sort='DESC'
   try {
     dispatch (startProductsLoading ());
     const resp = await fetch ('https://fakestoreapi.com/products');
     const json = await resp.json ();
     dispatch (setProducts (json));
-    console.log (json);
+    // console.log (json);
   } catch (e) {
     console.error ('ошибка', e);
   } finally {
@@ -23,3 +34,5 @@ const loadProducts = () => async dispatch => {
 };
 
 export {startProductsLoading, endProductsLoading, setProducts, loadProducts};
+
+qsHelper ({limit: 5, sort: 'DESC'});
