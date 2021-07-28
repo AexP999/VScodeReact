@@ -2,11 +2,13 @@
   margin:0;
   padding:0;
   text-align: center;
-  background: grey;
+  /* background: grey; */
   color: antiquewhite;
-  height:100vh ;
+  height:100% ;
 }
-
+body {
+    background: grey;
+}
 
 .App-logo {
   height: 40vmin;
@@ -45,15 +47,16 @@
 
 header{
   display: flex;
+
+
   justify-content: space-between;
   padding: 10px;
   background: lightgoldenrodyellow;
 }
 .card {
-  
-  margin: 10px;
-  width: 300px;
-  padding:10px;
+  margin: 5px;
+  width: 200px;
+  padding:5px;
   max-height: auto;
   border: 2px solid #282c34;
   border-radius: 15px;
@@ -62,6 +65,7 @@ header{
 .card p{
   text-align: left;
   padding-left: 15px;
+  font-size: 10px;
 }
 .cont2{
   display: flex;
@@ -73,6 +77,7 @@ header{
 }
 .cardCont{
 display: flex;
+  flex-wrap: wrap;
   padding:20px;
   
 }

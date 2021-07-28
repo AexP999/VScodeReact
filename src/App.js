@@ -13,87 +13,101 @@
 
 // // ====== 1  - 2 =====
 
-// import React, { useState } from 'react';
-// import './App.css';
+import React, { useState } from 'react';
+import './App.css';
 
-// const Card = ({ card }) => {
+const Card = ({ card }) => {
 
-//   return (
-//     card.map(card => (
-//       <div className='card'>
-//         <h2>{card.nameOfGoods}</h2>
-//         <p>Size: {card.size}</p>
-//         <p>Price: {card.price} hrn</p>
-//         {card.stock == true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
-//       </div >
-//     ))
-//   )
-// }
+  return (
+    card.map(card => (
+      <div className='card'>
+        <h4>{card.nameOfGoods}</h4>
+        <p>Size: {card.size}</p>
+        <p>Price: {card.price} hrn</p>
+        {card.stock === true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
+      </div >
+    ))
+  )
+}
 
-// function App() {
-//   const [cardArr, setCardArr] = useState([
-//     {
-//       id: 1,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN50',
-//       price: 220,
-//       stock: false
-//     },
-//     {
-//       id: 2,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN65',
-//       price: 257,
-//       stock: true
-//     },
-//     {
-//       id: 3,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN80',
-//       price: 340,
-//       stock: false
-//     },
-//     {
-//       id: 4,
-//       nameOfGoods: 'Cast Iron Butterfly Valve',
-//       size: 'DN100',
-//       price: 470,
-//       stock: true
-//     },
-//   ]);
+function App() {
+  const [cardArr, setCardArr] = useState([
+    {
+      id: 1,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN50',
+      price: 220,
+      stock: false
+    },
+    {
+      id: 2,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN65',
+      price: 257,
+      stock: true
+    },
+    {
+      id: 3,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN80',
+      price: 340,
+      stock: false
+    },
+    {
+      id: 4,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN100',
+      price: 470,
+      stock: true
+    },
+    {
+      id: 5,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN125',
+      price: 570,
+      stock: true
+    },
+    {
+      id: 6,
+      nameOfGoods: 'Cast Iron Butterfly Valve',
+      size: 'DN150',
+      price: 870,
+      stock: true
+    },
+  ]);
 
-//   const [initCardArr, setInitCardArr] = useState([...cardArr]);
+  const [initCardArr, setInitCardArr] = useState([...cardArr]);
 
-//   const delCardAtBegining = () => {
-//     const newCardArr = [...cardArr]
-//     newCardArr.shift()
-//     setCardArr(newCardArr)
-//   }
+  const delCardAtBegining = () => {
+    const newCardArr = [...cardArr]
+    newCardArr.shift()
+    setCardArr(newCardArr)
+  }
 
-//   const delCardAtEnd = () => {
-//     const newCardArr = [...cardArr]
-//     newCardArr.pop()
-//     setCardArr(newCardArr)
-//   }
+  const delCardAtEnd = () => {
+    const newCardArr = [...cardArr]
+    newCardArr.pop()
+    setCardArr(newCardArr)
+  }
 
-//   const revert = () => {
-//     const newCardArr = [...initCardArr]
-//     setCardArr(newCardArr)
-//   }
+  const revert = () => {
+    const newCardArr = [...initCardArr]
+    setCardArr(newCardArr)
+  }
 
-//   return (
-//     <div className='App'>
-//       <div className='cardCont'>
-//         <Card card={cardArr} />
-//       </div>
-//       <button onClick={delCardAtBegining}> Delete Card at the begining</button>
-//       <button onClick={delCardAtEnd}> Delete Card at the end</button>
-//       <button onClick={revert}> Revert</button>
-//     </div>
-//   );
-// }
+  return (
+    <div className='App'>
+      <div className='cardCont'>
+        <Card card={cardArr} />
+      </div>
+      <button onClick={delCardAtBegining}> Delete Card at the begining</button>
+      <button onClick={delCardAtEnd}> Delete Card at the end</button>
+      <button onClick={revert}> Revert</button>
+    </div>
+  );
+}
 
-// export default App;
+export default App;
 
 
 
