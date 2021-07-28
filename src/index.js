@@ -4,10 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const someFn = (text) => `${text} 321`
+
 ReactDOM.render(
   <React.StrictMode>
-    <App test={someFn} />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
