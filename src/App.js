@@ -31,7 +31,7 @@
 // }
 
 // function App() {
-//   const [cardArr, setCardArr] = useState([
+//   const cardArrInit= [
 //     {
 //       id: 1,
 //       nameOfGoods: 'Cast Iron Butterfly Valve',
@@ -74,9 +74,9 @@
 //       price: 870,
 //       stock: true
 //     },
-//   ]);
+//   ];
 
-//   const [initCardArr, setInitCardArr] = useState([...cardArr]);
+//   const [cardArr, setCardArr] = useState([...cardArrInit])
 
 //   const delCardAtBegining = () => {
 //     const newCardArr = [...cardArr]
@@ -91,7 +91,7 @@
 //   }
 
 //   const revert = () => {
-//     const newCardArr = [...initCardArr]
+//     const newCardArr = [...cardArrInit]
 //     setCardArr(newCardArr)
 //   }
 
@@ -113,92 +113,83 @@
 
 // // ======== 3 ======
 
-import React, { useState } from 'react';
-import './App.css';
+// import React, { useState } from 'react';
+// import './App.css';
 
-const Card = ({ cardArr }) => {
+// const Card = ({ cardArr }) => {
 
-  const [removeState, setRemoveState] = useState([...cardArr]);
+//   const [removeState, setRemoveState] = useState([...cardArr]);
   
-  const removeEachCard = (id) => {
-    setRemoveState(removeState.filter((elem) => elem.id !== id))
-  }
+//   const removeEachCard = (id) => {
+//     setRemoveState(removeState.filter((elem) => elem.id !== id))
+//   }
 
-  const revert = () => setRemoveState([...cardArr])
+//   const revert = () => setRemoveState([...cardArr])
 
-  return (
+//   return (
 
-    <div>
-      <div className='cont2'>
-        {removeState.map(removeState => (
-          <div className='card'>
-            <h2>{removeState.nameOfGoods}</h2>
-            <p>Size: {removeState.size}</p>
-            <p>Price: {removeState.price} hrn</p>
-            {removeState.stock === true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
-            <button onClick={() => removeEachCard(removeState.id)}>Remove</button>
-          </div >))}
-      </div>
-      <button onClick={revert}> Revert</button>
-    </div>
-  )
+//     <div>
+//       <div className='cont2'>
+//         {removeState.map(removeState => (
+//           <div className='card'>
+//             <h2>{removeState.nameOfGoods}</h2>
+//             <p>Size: {removeState.size}</p>
+//             <p>Price: {removeState.price} hrn</p>
+//             {removeState.stock === true ? <p>Availability: in stock</p> : <p>Availability: out of stock</p>}
+//             <button onClick={() => removeEachCard(removeState.id)}>Remove</button>
+//           </div >))}
+//       </div>
+//       <button onClick={revert}> Revert</button>
+//     </div>
+//   )
 
-}
+// }
 
-function App() {
+// function App() {
 
 
-  const cardArr = [
-    {
-      id: 1,
-      nameOfGoods: 'Cast Iron Butterfly Valve',
-      size: 'DN50',
-      price: 220,
-      stock: false
-    },
-    {
-      id: 2,
-      nameOfGoods: 'Cast Iron Butterfly Valve',
-      size: 'DN65',
-      price: 257,
-      stock: true
-    },
-    {
-      id: 3,
-      nameOfGoods: 'Cast Iron Butterfly Valve',
-      size: 'DN80',
-      price: 340,
-      stock: false
-    },
-    {
-      id: 4,
-      nameOfGoods: 'Cast Iron Butterfly Valve',
-      size: 'DN100',
-      price: 470,
-      stock: true
-    },
-  ];
+//   const cardArr = [
+//     {
+//       id: 1,
+//       nameOfGoods: 'Cast Iron Butterfly Valve',
+//       size: 'DN50',
+//       price: 220,
+//       stock: false
+//     },
+//     {
+//       id: 2,
+//       nameOfGoods: 'Cast Iron Butterfly Valve',
+//       size: 'DN65',
+//       price: 257,
+//       stock: true
+//     },
+//     {
+//       id: 3,
+//       nameOfGoods: 'Cast Iron Butterfly Valve',
+//       size: 'DN80',
+//       price: 340,
+//       stock: false
+//     },
+//     {
+//       id: 4,
+//       nameOfGoods: 'Cast Iron Butterfly Valve',
+//       size: 'DN100',
+//       price: 470,
+//       stock: true
+//     },
+//   ];
 
-  // const [initCardArr, setInitCardArr] = useState([...cardArr]);
+//   return (
+//     <div className='App'>
+//       <div>
+//         {console.log('ren cardArr', cardArr)}
+//         <Card cardArr={cardArr} />
+//       </div>
+//     </div>
+//   );
+// }
 
-  // const revert = () => {
-  //   console.log('cardArr', cardArr);
-  //   console.log('initCardArr', initCardArr);
-  //   const newCardArr = [...initCardArr]
-  //   setCardArr(newCardArr)
-  // }
-
-  return (
-    <div className='App'>
-      <div>
-        {console.log('ren cardArr', cardArr)}
-        <Card cardArr={cardArr} />
-      </div>
-    </div>
-  );
-}
-
-export default App;
+// export default App;
 
 
 
@@ -207,19 +198,19 @@ export default App;
 
 
 
-// import './App.css';
-// import Toggle from './Toggle'
+import './App.css';
+import Toggle from './Toggle'
 
-// import React from 'react';
+import React from 'react';
 
-// function App(props) {
-//   return (
-//     <div>
-//       <Toggle />
-//     </div>
-//   );
-// }
+function App(props) {
+  return (
+    <div>
+      <Toggle />
+    </div>
+  );
+}
 
-// export default App;
+export default App;
 
 
