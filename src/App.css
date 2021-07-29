@@ -67,10 +67,13 @@ header{
 .cont2{
   display: flex;
 }
-.bt1{
-  position: absolute;
-  left: 50%;
-  top: 80%;
+.btn1{
+  margin: 2px;
+  padding: 7px;
+  border-radius: 5px;
+}
+.btn1:hover{
+  background-color: rgb(197, 197, 197);
 }
 .cardCont{
 display: flex;
@@ -80,7 +83,18 @@ display: flex;
 .butn{
   display: flex;
   justify-content: center;
+  margin: 5px;
+  padding: 10px;
 }
+
 ul{
   text-align: left;
+}
+.cont{
+  display: inline-block;
+  border: solid 1px purple;
+  border-radius: 10px;
+  margin: 5px;
+  width:70%;
+  padding: 10px;
 }
