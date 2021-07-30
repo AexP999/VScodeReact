@@ -118,20 +118,20 @@ function App () {
         { updatedataJson.id ?
           (<li>
             <p> id: { updatedataJson.id } </p>
-            { !!updatedataJson.name === true ? <p> name: { updatedataJson.name }</p> : "" }
-            { !!updatedataJson.title === true ? <p> title: { updatedataJson.title }</p> : "" }
-            { !!updatedataJson.body === true ? <p> body: { updatedataJson.body }</p> : "" }
-            { !!updatedataJson.userId === true ? <p> userId: { updatedataJson.userId }</p> : "" }
-            { !!updatedataJson.postId === true ? <p> postId: { updatedataJson.postId }</p> : "" }
-            { !!updatedataJson.email === true ? <p> email: { updatedataJson.email }</p> : "" }
-            { !!updatedataJson.albumId === true ? <p> albumId: { updatedataJson.albumId }</p> : "" }
-            { !!updatedataJson.url === true ? <p> url: { updatedataJson.url }</p> : "" }
-            { !!updatedataJson.thumbnailUrl === true ? <p> thumbnailUrl: { updatedataJson.thumbnailUrl }</p> : "" }
-            { !!updatedataJson.phone === true ? <p> phone: { updatedataJson.phone }</p> : "" }
-            { !!updatedataJson.username === true ? <p> username: { updatedataJson.username }</p> : "" }
-            { !!updatedataJson.website === true ? <p> website: { updatedataJson.website }</p> : "" }
-            { !!updatedataJson.company === true ? <p> company: { JSON.stringify(updatedataJson.company) }</p> : "" }
-            { !!updatedataJson.address === true ? <p> address: { JSON.stringify(updatedataJson.address) }</p> : "" }
+            { !!updatedataJson.name ? <p> name: { updatedataJson.name }</p> : "" }
+            { !!updatedataJson.title ? <p> title: { updatedataJson.title }</p> : "" }
+            { !!updatedataJson.body ? <p> body: { updatedataJson.body }</p> : "" }
+            { !!updatedataJson.userId ? <p> userId: { updatedataJson.userId }</p> : "" }
+            { !!updatedataJson.postId ? <p> postId: { updatedataJson.postId }</p> : "" }
+            { !!updatedataJson.email ? <p> email: { updatedataJson.email }</p> : "" }
+            { !!updatedataJson.albumId ? <p> albumId: { updatedataJson.albumId }</p> : "" }
+            { !!updatedataJson.url ? <p> url: { updatedataJson.url }</p> : "" }
+            { !!updatedataJson.thumbnailUrl ? <p> thumbnailUrl: { updatedataJson.thumbnailUrl }</p> : "" }
+            { !!updatedataJson.phone ? <p> phone: { updatedataJson.phone }</p> : "" }
+            { !!updatedataJson.username ? <p> username: { updatedataJson.username }</p> : "" }
+            { !!updatedataJson.website ? <p> website: { updatedataJson.website }</p> : "" }
+            { !!updatedataJson.company ? <p> company: { JSON.stringify(updatedataJson.company, null, 2) }</p> : "" }
+            { !!updatedataJson.address ? <p> address: { JSON.stringify(updatedataJson.address, null, 2) }</p> : "" }
 
           </li>
           ) :
