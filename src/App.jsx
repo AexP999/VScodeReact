@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
 // створти 2 інтупи і кнопку
 // перший відповідає за ендпоінт джсон плейсхолдера(перша частина енпоніту)
@@ -25,28 +25,28 @@ const VALID_VALUES = [
   'users',
   'todos',
   'photos'
-]
-function App() {
-  const [enteredData, setEnteredData] = useState({
+];
+function App () {
+  const [ enteredData, setEnteredData ] = useState({
     endPoint: '',
     id: '',
-  })
-  const [updatedataJson, setupdatedataJson] = useState([]);
-  const [validateIdMessage, setvalidateIdMessage] = useState('');
+  });
+  const [ updatedataJson, setupdatedataJson ] = useState([]);
+  const [ validateIdMessage, setvalidateIdMessage ] = useState('');
 
   const handleSubmit = () => {
-    if (validateId()) fetchData();
-  }
+    if(validateId()) fetchData();
+  };
 
   const validateId = () => {
     let maxId = 0;
     setvalidateIdMessage('');
-    if (!VALID_VALUES.includes(enteredData.endPoint)) {
+    if(!VALID_VALUES.includes(enteredData.endPoint)) {
       alert('введите posts, comments, albums, users, todos, photos');
       return false;
     }
 
-    switch (enteredData.endPoint) {
+    switch(enteredData.endPoint) {
       case 'posts':
         maxId = 100;
         break;
@@ -68,67 +68,69 @@ function App() {
       default:
         break;
     }
-    if (enteredData.id === '') return true;
-    if (enteredData.id >= 1 && enteredData.id <= maxId) {
+    if(enteredData.id === '') return true;
+    if(enteredData.id >= 1 && enteredData.id <= maxId) {
       return true;
     } else {
       setupdatedataJson([]);
-      setvalidateIdMessage(`Please enter number from 1 to ${maxId}`)
+      setvalidateIdMessage(`Please enter number from 1 to ${ maxId }`);
       return false;
     }
-  }
+  };
 
   const fetchData = async () => {
-    const response = await fetch(`${JSP_URL}${enteredData.endPoint}/${enteredData.id}`);
+    const response = await fetch(`${ JSP_URL }${ enteredData.endPoint }/${ enteredData.id }`);
     const data = await response.json();
     setupdatedataJson(data);
-  }
+    console.log(data);
+  };
 
   const updateInput = (e) => {
-    const {target: {value, name}} = e;
-    setEnteredData({...enteredData, [name]: value})
-  }
+    const { target: { value, name } } = e;
+    setEnteredData({ ...enteredData, [ name ]: value });
+  };
   console.log('render');
 
   return (
     <div className='App'>
-      <h4>Hw</h4>
+      <h1>Hw</h1>
       <input
         type="text"
-        value={enteredData.endPoint}
-        onChange={updateInput}
+        value={ enteredData.endPoint }
+        onChange={ updateInput }
         name='endPoint'
         placeholder='enter JSP endpoint'
       />
       <br />
       <input
         type="number"
-        value={enteredData.id}
-        onChange={updateInput}
+        value={ enteredData.id }
+        onChange={ updateInput }
         name='id'
         placeholder='enter JSP id'
       />
       <br />
-      <button onClick={handleSubmit}>Press</button>
+      <button onClick={ handleSubmit }>Press</button>
 
-      {<p>{validateIdMessage}</p>}
+      { <p>{ validateIdMessage }</p> }
 
       <ul>
-        {updatedataJson.id ?
+        { updatedataJson.id ?
           (<li>
-            id: {updatedataJson.id} <br />
-            name: {updatedataJson.name ?? ' n/a'}<br />
-            title: {updatedataJson.title ?? ' n/a'}
+            id: { updatedataJson.id } <br />
+            { !!updatedataJson.name } ? (name: { updatedataJson.name ?? ' n/a' }):"" <br />
+
+            title: { updatedataJson.title ?? ' n/a' }
           </li>
           ) :
           (!!updatedataJson.length && updatedataJson.map((elem, i) => {
             return (
-              <li key={i}>
-                id: {elem.id} <br />
-                name: {elem.name ?? ' n/a'} <br />
-                title: {elem.title ?? ' n/a'}
+              <li key={ i }>
+                id: { elem.id } <br />
+                name: { elem.name ?? ' n/a' } <br />
+                title: { elem.title ?? ' n/a' }
               </li>
-            )
+            );
           })
           )
         }
