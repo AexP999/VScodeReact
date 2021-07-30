@@ -88,8 +88,8 @@ function App () {
   const updateInput = (e) => {
     const { target: { value, name } } = e;
     setEnteredData({ ...enteredData, [ name ]: value });
+
   };
-  console.log('render');
 
   return (
     <div className='App'>
@@ -117,18 +117,30 @@ function App () {
       <ul>
         { updatedataJson.id ?
           (<li>
-            id: { updatedataJson.id } <br />
-            { !!updatedataJson.name } ? (name: { updatedataJson.name ?? ' n/a' }):"" <br />
+            <p> id: { updatedataJson.id } </p>
+            { !!updatedataJson.name === true ? <p> name: { updatedataJson.name }</p> : "" }
+            { !!updatedataJson.title === true ? <p> title: { updatedataJson.title }</p> : "" }
+            { !!updatedataJson.body === true ? <p> body: { updatedataJson.body }</p> : "" }
+            { !!updatedataJson.userId === true ? <p> userId: { updatedataJson.userId }</p> : "" }
+            { !!updatedataJson.postId === true ? <p> postId: { updatedataJson.postId }</p> : "" }
+            { !!updatedataJson.email === true ? <p> email: { updatedataJson.email }</p> : "" }
+            { !!updatedataJson.albumId === true ? <p> albumId: { updatedataJson.albumId }</p> : "" }
+            { !!updatedataJson.url === true ? <p> url: { updatedataJson.url }</p> : "" }
+            { !!updatedataJson.thumbnailUrl === true ? <p> thumbnailUrl: { updatedataJson.thumbnailUrl }</p> : "" }
+            { !!updatedataJson.phone === true ? <p> phone: { updatedataJson.phone }</p> : "" }
+            { !!updatedataJson.username === true ? <p> username: { updatedataJson.username }</p> : "" }
+            { !!updatedataJson.website === true ? <p> website: { updatedataJson.website }</p> : "" }
+            { !!updatedataJson.company === true ? <p> company: { JSON.stringify(updatedataJson.company) }</p> : "" }
+            { !!updatedataJson.address === true ? <p> address: { JSON.stringify(updatedataJson.address) }</p> : "" }
 
-            title: { updatedataJson.title ?? ' n/a' }
           </li>
           ) :
           (!!updatedataJson.length && updatedataJson.map((elem, i) => {
             return (
               <li key={ i }>
                 id: { elem.id } <br />
-                name: { elem.name ?? ' n/a' } <br />
-                title: { elem.title ?? ' n/a' }
+                name: { elem.name ?? ' n/a1' } <br />
+                title: { elem.title ?? ' n/a1' }
               </li>
             );
           })
