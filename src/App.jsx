@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -11,42 +12,74 @@ import {
   useHistory
 } from "react-router-dom";
 
-// export default function App() {
+// export default function App () {
 //   return (
-// <Router>
-{/* <div className='App'> */ }
-{/* <nav> */ }
-{/* <ul> */ }
-{/* <li>
-              <Link to="/">Home</Link>
-            </li> */}
-{/* <li>
-              <Link to="/about">About</Link> */}
-{/* to - пропс, на который ссылается меняет url не перегружает страницу  */ }
-{/* </li> */ }
-{/* <li>
-              <Link to="/users">Users</Link>
-            </li> */}
-{/* тест, чтобы посмотреть */ }
-{/* <li>
-              <Link to="/test-route">Test-route</Link>
-            </li> */}
-{/* </ul> */ }
-{/* </nav> */ }
+//     <Router>
+//       <div className='App'>
+//         <nav>
+//           <ul>
+//             <li>
+//               <Link to="/">Home</Link>
+//             </li>
+//             <li>
+//               <Link to="/about">About</Link>
+//               {/* to - пропс, на который ссылается меняет url не перегружает страницу  */ }
+//             </li>
+//             <li>
+//               <Link to="/users">Users</Link>
+//             </li>
+//             {/* тест, чтобы посмотреть */ }
+//             <li>
+//               <Link to="/test-route">Test-route</Link>
+//             </li>
+//           </ul>
+//         </nav>
 
-{/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-{/* <Switch>
-          <Route path="/" exact >
-            <Home />
-          </Route>
-          <Route path="/about"> {/* підхопить урл і щось змінити, якщо /about, малюй <About />  */}
-{/* <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-        </Switch> * /} */}
+//         {/* A <Switch> looks through its children <Route>s and
+//             renders the first one that matches the current URL. */}
+//         <Switch>
+//           <Route path="/" exact >
+//             <Home />
+//           </Route>
+//           <Route path="/about"> {/* підхопить урл і щось змінити, якщо /about, малюй <About /> */ }
+//             <About />
+//           </Route>
+//           <Route path="/users">
+//             <Users />
+//           </Route>
+//           <Route path="/test-route">
+//             <TestRoute />
+//           </Route>
+//           {/* <Route>
+//             <h2>404 Page not found</h2>
+//           </Route> */}
+
+//           <Route>
+//             <Redirect to='/' />
+//           </Route>
+
+//         </Switch>
+
+//       </div>
+//     </Router>
+
+//   );
+// }
+
+// function Home () {
+//   return <h2>Home</h2>;
+// }
+// function TestRoute () {
+//   return <h2>Test - Route</h2>;
+// }
+
+// function About () {
+//   return <h2>About</h2>;
+// }
+
+// function Users () {
+//   return <h2>Users</h2>;
+// }
 
 {/* можно так писать */ }
 {/* <Switch>
@@ -76,10 +109,12 @@ import {
 {/* Если ъотим сделать переадресацию на home при неверном адресе */ }
 {/* <Route>
             <Redirect to='/' />
-          </Route> */}
+          </Route>
 
 {/* ==next=== */ }
-export default function App() {
+
+
+export default function App () {
   return (
     <Router>
       <div className='App'>
@@ -96,7 +131,7 @@ export default function App() {
         </nav>
 
         <Switch>
-          <Route path="/" component={Home} exact />
+          <Route path="/" component={ Home } exact />
           <Route path="/posts" exact>
             <Posts />
           </Route>
@@ -106,7 +141,7 @@ export default function App() {
           </Route>
 
 
-          {/* <Route path="/posts" component={Posts} /> */}
+          {/* <Route path="/posts" component={Posts} /> */ }
 
           <Route>
             <h2>404 Page not found</h2>
@@ -118,34 +153,35 @@ export default function App() {
   );
 }
 //якщо треба доступитися до ціх пропсів, пишемо props
-function Home(props) {
+function Home (props) {
 
   return <h2>Home</h2>;
 }
 
-function Posts(props) {
+function Posts (props) {
   console.log('props', props);
-  const [posts, Setposts] = React.useState([]);
+  const [ posts, Setposts ] = React.useState([]);
 
   const fetchData = async () => {
     const resp = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await resp.json();
     Setposts(data);
-  }
+    console.log(data);
+  };
 
   React.useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
   return (
     <div>
-      <ul>
-        {posts.map(el => <Link to={`/posts/${el.id}`}><li>{el.title} - {el.id}</li></Link>)}
+      <ul >
+        { posts.map(el => <Link to={ `/posts/${ el.id }` }><li style={ { color: '#fcf' } }>{ el.title } - { el.id }</li></Link>) }
       </ul>
     </div>
-  )
+  );
 }
-function PostDetails(props) {
-  const [post, Setpost] = React.useState([]);
+function PostDetails (props) {
+  const [ post, Setpost ] = React.useState([]);
   console.log('props', props);
 
   const match = useRouteMatch();
@@ -156,22 +192,22 @@ function PostDetails(props) {
   console.log('match', match, 'loc', loc);
 
   const fetchData = async () => {
-    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    const resp = await fetch(`https://jsonplaceholder.typicode.com/posts/${ id }`);
     const data = await resp.json();
     Setpost(data);
-  }
+  };
 
   React.useEffect(() => {
     fetchData();
-  }, [id])
+  }, [ id ]);
   return (
-    <div>
+    <div style={ { color: '#fcfcfc' } }>
       <h2>Post details</h2>
-      {post && (<><h3>{post.title}</h3><p>id: {post.id}</p> <p>{post.body}</p></>)}
+      { post && (<><h3>{ post.title }</h3><p>id: { post.id }</p> <p>{ post.body }</p></>) }
 
-      <button onClick={() => history.push(`/posts/${+id - 1}`)}>prev post</button>
-      <button onClick={() => history.push(`/posts/${+id + 1}`)}>next post</button>
+      <button onClick={ () => history.push(`/posts/${ +id - 1 }`) }>prev post</button>
+      <button onClick={ () => history.push(`/posts/${ +id + 1 }`) }>next post</button>
     </div>
-  )
+  );
 }
 
