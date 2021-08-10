@@ -2,35 +2,123 @@
 // предыдущее значение. setCounter действует асинхронно.
 // 
 
-// import React, { useState } from 'react';
-// import './App.css';
+import React, { useState } from 'react';
+import './App.css';
 
-// function App (props) {
-//   const [ counter, setCounter ] = useState(0);
-//   const inc = () => {
-//     setCounter(counter + 1);
+function calculatedValue () {
+  console.log('calculatedValue');
+  return Math.trunc(Math.random() * 100);
+};
 
-//     console.log('counter inc', counter);
-//   };
-//   const dec = () => {
-//     setCounter(counter - 1);
+// const initData = [
+//   { title: 'Cold counter', dn: 50 },
+//   { title: 'Middle counter', dn: 100 },
+//   { title: 'Hot counter', dn: 150 }
+// ];
 
-//     console.log('counter dec', counter);
-//   };
-//   React.useEffect(() => {
-//     console.log('counter useEff', counter);
-//   }, [ counter ]);
-//   console.log('render');
-//   return (
-//     <div className="App">
-//       <button onClick={ dec }>dec</button>
-//       <span>{ counter }</span>
-//       <button onClick={ inc }>inc</button>
-//     </div>
-//   );
-// }
+const COLORS = [ 'black', 'white', 'red', 'grey', 'yellow' ];
 
-// export default App;
+function App () {
+
+  const [ counter, setCounter ] = useState(calculatedValue);
+  // const [ data, setData ] = useState({ ...initData });
+  const [ el, setEl ] = useState(0);
+  const [ elem, setElem ] = useState({ name: '', color: '', age: 0, habits: '' });
+
+
+  const inc = () => {
+    setCounter(prev => {
+      return prev + 1;
+    }
+    );
+
+  };
+
+  const dec = () => {
+    setCounter(counter - 1);
+  };
+
+  const reset = () => {
+    const counter = calculatedValue;
+    setEl(0);
+    setCounter(counter);
+    // setData('');
+  };
+
+
+  const handleElem = (name22) => {
+    return ({ target: { value } }) => {
+      setElem(prev => ({ ...prev, [ name22 ]: value }));
+    };
+
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await saveFormData();
+      alert('Your registration was successfull');
+    } catch(error) {
+      alert(`Registration faied. ${ error.message }`);
+
+    }
+  };
+
+  const saveFormData = async () => {
+    const response = await fetch('api/registration', {
+      method: 'POST',
+      body: JSON.stringify(elem)
+    });
+
+    if(response.status !== 200) {
+      throw new Error(`Request failed: ${ response.status }`);
+    }
+  };
+
+
+
+  console.log('elem', elem);
+
+  console.log('render');
+  return (
+    <div className="App">
+      <h1>Hooks tests</h1>
+      <h4>Counter: { counter }</h4>
+      <button onClick={ inc } className="btn btn-success">Inc</button>
+      <button onClick={ dec } className="btn btn-warning">Dec</button>
+      <button onClick={ reset } className="btn btn-danger">Reset</button>
+
+      <hr />
+
+      <form onSubmit={ onSubmit } >
+        <h2>Register your cat</h2>
+        <label >Name :</label>
+        <input type="text" required value={ elem.name } onChange={ handleElem('name') }
+        />
+
+        <label>Color :</label>
+        <select value={ elem.color } required onChange={ handleElem('color') }>
+          <option value="">Select color</option>
+          { COLORS.map(color => <option key={ color }>{ color }</option>) }
+        </select>
+
+        <label >Age :</label>
+        <input type="number" required min='1' value={ elem.age } onChange={ handleElem('age') }
+        />
+
+        <label >Habits :</label>
+        <textarea value={ elem.habits } onChange={ handleElem('habits') }
+        />
+
+        <button type='submit'>Submit</button>
+
+      </form>
+
+    </div >
+  );
+};
+
+export default App;
 
 // // useState callback style тре використовувать якщо треба використовувать попереднє значенння.
 // // якщо setCounter юзает counter, треба
@@ -171,41 +259,41 @@
 // ====useReducer===
 // похож на useState
 
-import React from 'react';
-import './App.css';
+// import React from 'react';
+// import './App.css';
 
-const initialState = {
-  counter: 0,
-};
+// const initialState = {
+//   counter: 0,
+// };
 
-const reducer = (state, action) => {
-  switch(action.type) {
-    case 'INC_MY_COUNTER':
-      return { ...state, counter: state.counter + 1 };
-    case 'DEC_MY_COUNTER':
-      return { ...state, counter: state.counter - 1 };
-    default:
-      // throw new Error(); або так
-      return state;
-  }
-};
+// const reducer = (state, action) => {
+//   switch(action.type) {
+//     case 'INC_MY_COUNTER':
+//       return { ...state, counter: state.counter + 1 };
+//     case 'DEC_MY_COUNTER':
+//       return { ...state, counter: state.counter - 1 };
+//     default:
+//       // throw new Error(); або так
+//       return state;
+//   }
+// };
 
-function App () {
+// function App () {
 
-  const [ state, dispatch ] = React.useReducer(reducer, initialState);
+//   const [ state, dispatch ] = React.useReducer(reducer, initialState);
 
 
 
-  console.log('render');
+//   console.log('render');
 
-  return (
-    <div className="App">
-      <h1>{ state.counter }</h1>
-      <button onClick={ () => dispatch({ type: 'INC_MY_COUNTER' }) }>inc</button>
+//   return (
+//     <div className="App">
+//       <h1>{ state.counter }</h1>
+//       <button onClick={ () => dispatch({ type: 'INC_MY_COUNTER' }) }>inc</button>
 
-      <button onClick={ () => dispatch({ type: 'DEC_MY_COUNTER' }) }>dec</button>
-    </div>
-  );
-}
+//       <button onClick={ () => dispatch({ type: 'DEC_MY_COUNTER' }) }>dec</button>
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;
