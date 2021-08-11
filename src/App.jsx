@@ -1,134 +1,15 @@
-// useEffect позволяет отслеживать значение counter. CLG в функциях inc dec показывает 
-// предыдущее значение. setCounter действует асинхронно.
-// 
-
 import React, { useState } from 'react';
-import { ListGroupItem } from 'react-bootstrap';
 import './App.css';
-
-function calculatedValue () {
-  console.log('calculatedValue');
-  return Math.trunc(Math.random() * 100);
-};
-
-// const initData = [
-//   { title: 'Cold counter', dn: 50 },
-//   { title: 'Middle counter', dn: 100 },
-//   { title: 'Hot counter', dn: 150 }
-// ];
-
-const COLORS = [ 'black', 'white', 'red', 'grey', 'yellow' ];
 
 function App () {
 
-  const [ counter, setCounter ] = useState(calculatedValue);
-  // const [ data, setData ] = useState({ ...initData });
-  const [ el, setEl ] = useState(0);
-  const [ elem, setElem ] = useState({ name: '', color: '', age: 0, habits: '' });
 
-
-  const inc = () => {
-    setCounter(prev => {
-      return prev + 1;
-    }
-    );
-
-  };
-
-  const dec = () => {
-    setCounter(counter - 1);
-  };
-
-  const reset = () => {
-    const counter = calculatedValue;
-    setEl(0);
-    setCounter(counter);
-    // setData('');
-  };
-
-
-  const handleElem = (e) => {
-    const { target: { value, name } } = e;
-
-    setElem({ ...elem, [ name ]: value });
-
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await saveFormData();
-      alert('Your registration was successfull');
-    } catch(error) {
-      alert(`Registration faied. ${ error.message }`);
-
-    }
-  };
-
-  const saveFormData = async () => {
-    const response = await fetch('api/registration', {
-      method: 'POST',
-      body: JSON.stringify(elem)
-    });
-
-    if(response.status !== 200) {
-      throw new Error(`Request failed: ${ response.status }`);
-    }
-  };
-
-
-
-  console.log('elem', elem);
 
   console.log('render');
   return (
     <div className="App">
-      <h1>Hooks tests</h1>
-      <h4>Counter: { counter }</h4>
-      <button onClick={ inc } className="btn btn-success">Inc</button>
-      <button onClick={ dec } className="btn btn-warning">Dec</button>
-      <button onClick={ reset } className="btn btn-danger">Reset</button>
 
-      <hr />
 
-      <form onSubmit={ onSubmit } >
-        <h2>Register your cat</h2>
-        <label >Name :</label>
-        <input
-          type="text"
-          required value={ elem.name }
-          onChange={ handleElem }
-          name='name'
-        />
-
-        <label>Color :</label>
-        <select
-          value={ elem.color }
-          required onChange={ handleElem }
-          name='color'
-        >
-          <option >Select color</option>
-          { COLORS.map(color => <option key={ color }>{ color }</option>) }
-        </select>
-
-        <label >Age :</label>
-        <input
-          type="number" required min='1'
-          value={ elem.age }
-          onChange={ handleElem }
-          name='age'
-        />
-
-        <label >Habits :</label>
-        <textarea
-          value={ elem.habits }
-          onChange={ handleElem }
-          name='habits'
-        />
-
-        <button type='submit'>Submit</button>
-
-      </form>
 
     </div >
   );
