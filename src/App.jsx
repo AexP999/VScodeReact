@@ -3,6 +3,7 @@
 // 
 
 import React, { useState } from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 import './App.css';
 
 function calculatedValue () {
@@ -46,10 +47,10 @@ function App () {
   };
 
 
-  const handleElem = (name22) => {
-    return ({ target: { value } }) => {
-      setElem(prev => ({ ...prev, [ name22 ]: value }));
-    };
+  const handleElem = (e) => {
+    const { target: { value, name } } = e;
+
+    setElem({ ...elem, [ name ]: value });
 
   };
 
@@ -93,21 +94,36 @@ function App () {
       <form onSubmit={ onSubmit } >
         <h2>Register your cat</h2>
         <label >Name :</label>
-        <input type="text" required value={ elem.name } onChange={ handleElem('name') }
+        <input
+          type="text"
+          required value={ elem.name }
+          onChange={ handleElem }
+          name='name'
         />
 
         <label>Color :</label>
-        <select value={ elem.color } required onChange={ handleElem('color') }>
-          <option value="">Select color</option>
+        <select
+          value={ elem.color }
+          required onChange={ handleElem }
+          name='color'
+        >
+          <option >Select color</option>
           { COLORS.map(color => <option key={ color }>{ color }</option>) }
         </select>
 
         <label >Age :</label>
-        <input type="number" required min='1' value={ elem.age } onChange={ handleElem('age') }
+        <input
+          type="number" required min='1'
+          value={ elem.age }
+          onChange={ handleElem }
+          name='age'
         />
 
         <label >Habits :</label>
-        <textarea value={ elem.habits } onChange={ handleElem('habits') }
+        <textarea
+          value={ elem.habits }
+          onChange={ handleElem }
+          name='habits'
         />
 
         <button type='submit'>Submit</button>
