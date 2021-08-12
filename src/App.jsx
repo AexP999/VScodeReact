@@ -1,16 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 
+export function ListNum ({ getNumbers }) {
+  const [ items, setItems ] = useState([]);
+
+  useEffect(() => {
+    setItems(getNumbers(3));
+    console.log('Update items');
+  }, [ getNumbers ]);
+
+  console.log('render LisNum');
+  return (
+    items.map(item => <div key={ item }>{ item }</div>)
+  );
+}
+
 function App () {
+  const [ number, setNumber ] = useState(0);
+  const [ darkTheme, setDarktheme ] = useState(false);
 
+  const theme = {
+    background: darkTheme ? '#333' : '#fff',
+    color: darkTheme ? '#fff' : '#333'
+  };
 
+  const getNumbers = useCallback((inc) => {
+    return [ number + inc, number + 1 + inc, number + 2 + inc ];
+
+  }, [ number ]);
+
+  console.log(number);
 
   console.log('render');
   return (
-    <div className="App">
+    <div className="App" style={ theme } >
+      <input
+        type="number"
+        value={ number }
+        onChange={ e => setNumber(Number(e.target.value)) }
+      />
 
+      <button onClick={ () => setDarktheme(prev => !prev) } >Change Theme</button>
 
-
+      <ListNum getNumbers={ getNumbers } />
     </div >
   );
 };
