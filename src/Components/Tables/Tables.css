@@ -2,3 +2,6 @@ td,th {
    text-align: left;
    
 }
+thead {
+   cursor: pointer;
+}
