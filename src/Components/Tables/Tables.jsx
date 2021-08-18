@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Tables.css';
 import { PersonCard } from '../PersonCard/PersonCard';
+import { userDataConst } from '../constants';
 
 export const Tables = ({ data }) => {
   const [ sortDir, setSortDir ] = useState('');
@@ -9,7 +10,6 @@ export const Tables = ({ data }) => {
   const [ personData, setPersonData ] = useState(null);
 
   const onSort = (sortProps) => {
-
 
     setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
 
@@ -30,57 +30,26 @@ export const Tables = ({ data }) => {
 
   const rowSelect = (el) => {
     setPersonData(el);
-    console.log(personData);
+
   };
 
 
   console.log('table render');
   return (
     <div>
-      <table className="table">
 
+      <table className="table">
         <thead>
           <tr>
-            <th onClick={ () => onSort('id') } >id
-              {
-                sortedField === 'id' ?
-                  (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
-                    : <i className="bi bi-arrow-up"></i>)
-                  : null
-              }
-            </th>
-            <th onClick={ () => onSort('firstName') }>FirstName
-              {
-                sortedField === 'firstName' ?
-                  (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
-                    : <i className="bi bi-arrow-up"></i>)
-                  : null
-              }
-            </th>
-            <th onClick={ () => onSort('lastname') }>LastName
-              {
-                sortedField === 'lastname' ?
-                  (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
-                    : <i className="bi bi-arrow-up"></i>)
-                  : null
-              }
-            </th>
-            <th onClick={ () => onSort('email') }>email
-              {
-                sortedField === 'email' ?
-                  (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
-                    : <i className="bi bi-arrow-up"></i>)
-                  : null
-              }
-            </th>
-            <th onClick={ () => onSort('phone') }>phone
-              {
-                sortedField === 'phone' ?
-                  (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
-                    : <i className="bi bi-arrow-up"></i>)
-                  : null
-              }
-            </th>
+            { userDataConst.map((item, i) =>
+              <th key={ item + i } onClick={ () => onSort(item) } >{ item }
+                {
+                  sortedField === item ?
+                    (sortDir === 'asc' ? <i className="bi bi-arrow-down"></i>
+                      : <i className="bi bi-arrow-up"></i>)
+                    : null
+                }
+              </th>) }
           </tr>
         </thead>
         { sortedData.map((item) =>
@@ -93,10 +62,8 @@ export const Tables = ({ data }) => {
               <td>{ item.email }</td>
               <td>{ item.phone }</td>
             </tr>
-
           </tbody>
-        )
-        }
+        ) }
       </table>
       <PersonCard personData={ personData } />
     </div>
