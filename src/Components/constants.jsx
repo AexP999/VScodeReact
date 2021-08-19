@@ -10,11 +10,13 @@ const userDataConst = [
   'email',
   'phone'
 ];
+const elementsPerPage = 30;
 
 export {
   SMALLURL,
   LARGEURL,
-  userDataConst
+  userDataConst,
+  elementsPerPage
 };
 
 

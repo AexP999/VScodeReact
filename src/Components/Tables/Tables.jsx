@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import './Tables.css';
 import { PersonCard } from '../PersonCard/PersonCard';
-import { userDataConst } from '../constants';
+import { userDataConst, elementsPerPage } from '../constants';
 
 export const Tables = ({ data }) => {
   const [ sortDir, setSortDir ] = useState('');
   const [ sortedData, setSortedData ] = useState(data);
   const [ sortedField, setSortedField ] = useState('');
   const [ personData, setPersonData ] = useState(null);
+  const [ currentPage, setCurrentPage ] = useState(1);
+
+  const pageCount = Math.ceil(sortedData.length / elementsPerPage);
+  const lastElementInPage = currentPage * elementsPerPage;
+  const firstElementInPage = lastElementInPage - elementsPerPage;
+  const currentElementsInPage = sortedData.slice(firstElementInPage, lastElementInPage);
+
+  console.log('currentElementsInPage', currentElementsInPage);
+  console.log('lastElementInPage', lastElementInPage);
+  console.log('firstElementInPage', firstElementInPage);
+  console.log('currentPage', currentPage);
 
   const onSort = (sortProps) => {
 
@@ -30,8 +42,12 @@ export const Tables = ({ data }) => {
 
   const rowSelect = (el) => {
     setPersonData(el);
-
   };
+
+  const pageHandler = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
+
 
 
   console.log('table render');
@@ -52,8 +68,7 @@ export const Tables = ({ data }) => {
               </th>) }
           </tr>
         </thead>
-        { sortedData.map((item) =>
-
+        { currentElementsInPage.map((item) =>
           <tbody key={ item.id + item.firstName }>
             <tr onClick={ () => rowSelect(item) } >
               <th scope="raw">{ item.id }</th>
@@ -65,6 +80,30 @@ export const Tables = ({ data }) => {
           </tbody>
         ) }
       </table>
+      {
+        data.length > elementsPerPage
+          ? <ReactPaginate
+            previousLabel={ 'prev' }
+            nextLabel={ 'next' }
+            breakLabel={ '...' }
+            breakClassName={ 'break-me' }
+            pageCount={ pageCount }
+            marginPagesDisplayed={ 5 }
+            pageRangeDisplayed={ 5 }
+            onPageChange={ pageHandler }
+            containerClassName={ 'pagination' }
+            activeClassName={ 'active' }
+            pageClassName="page-item"
+            activeLinkClassName={ "page-link" }
+            pageLinkClassName={ "page-link" }
+            previousLinkClassName={ "page-link" }
+            nextLinkClassName={ "page-link" }
+            previousClassName={ "page-item" }
+            nextClassName={ "page-item" }
+          />
+          : null
+      }
+
       <PersonCard personData={ personData } />
     </div>
   );
