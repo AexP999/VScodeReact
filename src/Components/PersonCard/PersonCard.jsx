@@ -3,6 +3,7 @@ import './PersonCard.css';
 
 export const PersonCard = ({ personData }) => {
 
+  console.log('PersonCard render');
   return (
     <div id='contCard'>
       { personData ?

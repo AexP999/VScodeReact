@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import './Tables.css';
 import { PersonCard } from '../PersonCard/PersonCard';
-import { userDataConst, elementsPerPage } from '../constants';
+import { Search } from '../Search/Search';
+import { USERDATAARRAY, ELEMENTSPERPAGE } from '../constants';
 
 export const Tables = ({ data }) => {
   const [ sortDir, setSortDir ] = useState('');
   const [ sortedData, setSortedData ] = useState(data);
   const [ sortedField, setSortedField ] = useState('');
   const [ personData, setPersonData ] = useState(null);
-  const [ currentPage, setCurrentPage ] = useState(1);
+  const [ currentPage, setCurrentPage ] = useState(0);
 
-  const pageCount = Math.ceil(sortedData.length / elementsPerPage);
-  const lastElementInPage = currentPage * elementsPerPage;
-  const firstElementInPage = lastElementInPage - elementsPerPage;
+  const pageCount = Math.ceil(sortedData.length / ELEMENTSPERPAGE);
+  const lastElementInPage = (currentPage + 1) * ELEMENTSPERPAGE;
+  const firstElementInPage = lastElementInPage - ELEMENTSPERPAGE;
   const currentElementsInPage = sortedData.slice(firstElementInPage, lastElementInPage);
 
   console.log('currentElementsInPage', currentElementsInPage);
@@ -45,19 +46,22 @@ export const Tables = ({ data }) => {
   };
 
   const pageHandler = ({ selected }) => {
-    setCurrentPage(selected + 1);
+    setCurrentPage(selected);
   };
 
+  const onSearch = (search) => {
+    console.log(search);
+  };
 
 
   console.log('table render');
   return (
     <div>
-
+      <Search onSearch={ onSearch } />
       <table className="table">
         <thead>
           <tr>
-            { userDataConst.map((item, i) =>
+            { USERDATAARRAY.map((item, i) =>
               <th key={ item + i } onClick={ () => onSort(item) } >{ item }
                 {
                   sortedField === item ?
@@ -81,7 +85,7 @@ export const Tables = ({ data }) => {
         ) }
       </table>
       {
-        data.length > elementsPerPage
+        data.length > ELEMENTSPERPAGE
           ? <ReactPaginate
             previousLabel={ 'prev' }
             nextLabel={ 'next' }
@@ -100,6 +104,7 @@ export const Tables = ({ data }) => {
             nextLinkClassName={ "page-link" }
             previousClassName={ "page-item" }
             nextClassName={ "page-item" }
+            forcePage={ currentPage }
           />
           : null
       }
