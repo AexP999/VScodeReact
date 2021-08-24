@@ -80,11 +80,11 @@ export const Tables = ({ data }) => {
   console.log('table render');
   return (
     <div>
-      <Search onSearch={ onSearch } />
+      <Search onSearch={ onSearch } />    {/* комп. поиска*/ }
       <table className="table">
         <thead>
           <tr>
-            { USERDATAARRAY.map((item, i) =>
+            { USERDATAARRAY.map((item, i) =>      //итерация заголовков для сортировки
               <th key={ item + i } onClick={ () => onSort(item) } >{ item }
                 {
                   sortedField === item ?
@@ -95,7 +95,7 @@ export const Tables = ({ data }) => {
               </th>) }
           </tr>
         </thead>
-        { currentElementsInPage.map((item) =>
+        { currentElementsInPage.map((item) =>     //итерация строк для сокращения кода - вывод ячеек таблицы
           <tbody key={ item.id + item.firstName }>
             <tr onClick={ () => rowSelect(item) } >
               <th scope="raw">{ item.id }</th>
@@ -108,8 +108,8 @@ export const Tables = ({ data }) => {
         ) }
       </table>
       {
-        data.length > ELEMENTSPERPAGE
-          ? <ReactPaginate
+        data.length > ELEMENTSPERPAGE     // проверка вызова если кол-во строк на страницу больше заданного
+          ? <ReactPaginate              // компонет пагинации
             previousLabel={ 'prev' }
             nextLabel={ 'next' }
             breakLabel={ '...' }
@@ -127,12 +127,12 @@ export const Tables = ({ data }) => {
             nextLinkClassName={ "page-link" }
             previousClassName={ "page-item" }
             nextClassName={ "page-item" }
-            forcePage={ currentPage }
+            forcePage={ currentPage }     // для сброса в ноль текущейстраницы при фильтрации-поиске
           />
           : null
       }
 
-      <PersonCard personData={ personData } />
+      <PersonCard personData={ personData } /> {/* комп вывода данных юзера   */ }
     </div>
   );
 };
