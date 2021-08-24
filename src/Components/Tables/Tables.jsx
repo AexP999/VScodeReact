@@ -6,23 +6,45 @@ import { Search } from '../Search/Search';
 import { USERDATAARRAY, ELEMENTSPERPAGE } from '../constants';
 
 export const Tables = ({ data }) => {
-  const [ sortDir, setSortDir ] = useState('');
-  const [ sortedData, setSortedData ] = useState(data);
-  const [ sortedField, setSortedField ] = useState('');
-  const [ personData, setPersonData ] = useState(null);
-  const [ currentPage, setCurrentPage ] = useState(0);
+  const [ sortDir, setSortDir ] = useState('');         //Стейт направление сортировки
+  const [ sortedData, setSortedData ] = useState(data); //Стейт отсортированные данные
+  const [ sortedField, setSortedField ] = useState(''); //Стейт поле сортировки
+  const [ personData, setPersonData ] = useState(null); //Данные для карточки юзера
+  const [ currentPage, setCurrentPage ] = useState(0);  //текущая страниц пагинации
+  const [ search, setSearch ] = useState('');   //поисковая фраза
 
-  const pageCount = Math.ceil(sortedData.length / ELEMENTSPERPAGE);
-  const lastElementInPage = (currentPage + 1) * ELEMENTSPERPAGE;
-  const firstElementInPage = lastElementInPage - ELEMENTSPERPAGE;
-  const currentElementsInPage = sortedData.slice(firstElementInPage, lastElementInPage);
+
+  const getFilteredData = () => {   //ф-ия сортировки данных
+    if(!search) {
+      return sortedData;
+    }
+    return sortedData.filter(elem => {
+
+      for(const iter of USERDATAARRAY) {
+        if(elem[ iter ].toString().toLocaleLowerCase().includes(search.toLocaleLowerCase())) {  //приведение к нижнему регистру
+          return elem;    //toString для цифр
+        }
+      }
+    }
+    );
+  };
+
+
+  const filteredData = getFilteredData(); //вызов ф-ии сортировки данных
+
+  const pageCount = Math.ceil(filteredData.length / ELEMENTSPERPAGE); //количество страниц
+  const lastElementInPage = (currentPage + 1) * ELEMENTSPERPAGE;    //номер последней строки на странице пагинации
+  const firstElementInPage = lastElementInPage - ELEMENTSPERPAGE; //номер первой строки на странице пагинации
+
+  const currentElementsInPage = filteredData.slice(firstElementInPage, lastElementInPage); // массив строк на странице пагинаций
 
   console.log('currentElementsInPage', currentElementsInPage);
   console.log('lastElementInPage', lastElementInPage);
   console.log('firstElementInPage', firstElementInPage);
   console.log('currentPage', currentPage);
 
-  const onSort = (sortProps) => {
+
+  const onSort = (sortProps) => {       //ф-ия сортировки. пропс -по какому заголовку сортируем
 
     setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
 
@@ -41,16 +63,17 @@ export const Tables = ({ data }) => {
     setSortedField(sortProps);
   };
 
-  const rowSelect = (el) => {
+  const rowSelect = (el) => {   //ф-ия выбор ряда для вывода данных юзера
     setPersonData(el);
   };
 
-  const pageHandler = ({ selected }) => {
+  const pageHandler = ({ selected }) => { //ф-ия при нажатии на страницу пагинации. Аргумент - текущая страница
     setCurrentPage(selected);
   };
 
-  const onSearch = (search) => {
-    console.log(search);
+  const onSearch = (search) => {  // ф-ия при нажатии на кнопку Search. Арг - фраза поиска
+    setSearch(search);
+    setCurrentPage(0);      // текущая страница ставится ноль, т.к. не известно, на какой странице мы были
   };
 
 
