@@ -7,8 +7,9 @@ import './Button.css';
 const Button = ({
   children, onClick, className, disabled, active, ...attrs
 }) => {
+
   const onClickAction = e => {
-    if (disabled) {
+    if(disabled) {
       e.preventDefault();
     } else {
       return onClick(e);
@@ -25,12 +26,12 @@ const Button = ({
 
   return (
     <Tag
-      className={classes}
-      disabled={disabled}
-      onClick={onClickAction}
-      {...attrs}
+      className={ classes }
+      disabled={ disabled }
+      onClick={ onClickAction }
+      { ...attrs }
     >
-      {children}
+      { children }
     </Tag>
   );
 };
@@ -45,7 +46,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   children: 'Default button',
-  onClick: () => {},
+  onClick: () => { },
   className: '',
   disabled: false,
   active: false,
