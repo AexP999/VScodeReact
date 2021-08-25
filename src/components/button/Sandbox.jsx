@@ -6,7 +6,7 @@ const Sandbox = () => (
   <Fragment>
 
     <h2><span>1. Text and onClick function:</span></h2>
-    <Button onClick={ () => { console.log('!!!!'); } } active  >Button text</Button>
+    <Button onClick={ () => { console.log('!!!!'); } }   >Button text</Button>
 
     <h2><span>2. Disabled button:</span></h2>
     <Button onClick={ () => { console.log('!!!!'); } } disabled />
